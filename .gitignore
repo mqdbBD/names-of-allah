@@ -1,0 +1,16 @@
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+
+# النسخ الاحتياطية (تحتوي نسخاً من PDF — كبير ولا داعيpublish)
+snapshots/
+
+# ملفات البناء
+node_modules/
+dist/
+.vite/
+
+# ملفات محلية
+.env
+.env.local
