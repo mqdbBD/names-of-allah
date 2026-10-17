@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- تطبيق قابل للتثبيت -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0f1512">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<title>اختبار أسماء الله الحسنى | أسئلة مع الأدلة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f1e7; --card:#ffffff; --text:#2b2417; --muted:#8a7d63;
+  --gold:#b8860b; --gold2:#d4a017; --gold-soft:rgba(184,134,11,.12);
+  --border:#e8ddc3; --green:#1a7a4c; --red:#c0392b;
+  --green-soft:rgba(26,122,76,.12); --red-soft:rgba(192,57,43,.10);
+  --shadow:0 10px 30px rgba(120,90,20,.10); --radius:18px;
+}
+[data-theme="dark"]{
+  --bg:#0f1512; --card:#1a2420; --text:#f0e8d5; --muted:#a99c80;
+  --gold:#e3b341; --gold2:#f5cf6a; --gold-soft:rgba(227,179,65,.12);
+  --border:#2c3a33; --green:#3dd68c; --red:#ff7a6b;
+  --green-soft:rgba(61,214,140,.12); --red-soft:rgba(255,122,107,.12);
+  --shadow:0 10px 30px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Cairo',system-ui,sans-serif;background:radial-gradient(900px 420px at 50% -100px, var(--gold-soft), transparent),var(--bg);color:var(--text);font-size:17px;line-height:2;transition:background .3s,color .3s}
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:color-mix(in srgb, var(--bg) 90%, transparent);border-bottom:1px solid var(--border)}
+.nav{max-width:1100px;margin:auto;padding:11px 16px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem}
+.logo-mark{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:21px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1a1405;box-shadow:var(--shadow);font-family:'Aref Ruqaa',serif}
+.logo small{display:block;font-size:.7rem;color:var(--muted);font-weight:600}
+.spacer{flex:1}
+.btn{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:8px 14px;cursor:pointer;font-family:inherit;font-weight:700;display:inline-flex;align-items:center;gap:6px;transition:.2s;font-size:.9rem;text-decoration:none}
+.btn:hover{border-color:var(--gold);transform:translateY(-1px)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;color:#1c1503}
+.tool-group{display:flex;gap:6px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:4px 6px}
+.tool-group button{border:none;background:transparent;color:var(--text);font-size:17px;width:32px;height:32px;border-radius:50%;cursor:pointer;font-weight:800}
+.tool-group button:hover{background:var(--gold-soft)}
+.tool-group span{font-weight:800;min-width:40px;text-align:center;font-size:.88rem}
+.pages{display:flex;gap:7px;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:4px}
+.pages a{border-radius:999px;padding:6px 14px;font-weight:800;font-size:.86rem;color:var(--text);text-decoration:none;white-space:nowrap;transition:.2s}
+.pages a:hover{background:var(--gold-soft)}
+.pages a.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1c1503}
+.hero{max-width:880px;margin:auto;padding:34px 16px 8px;text-align:center}
+.hero .kicker{display:inline-block;background:var(--gold-soft);border:1px solid var(--border);color:var(--gold);border-radius:999px;padding:5px 16px;font-weight:800;font-size:.88rem}
+.hero h1{font-family:'Reem Kufi','Cairo',sans-serif;font-size:clamp(1.8rem,4.6vw,2.7rem);margin:.4em 0;line-height:1.6}
+.hero h1 span{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);max-width:720px;margin:auto}
+.stats{max-width:1100px;margin:16px auto;padding:0 16px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center;box-shadow:var(--shadow)}
+.stat b{font-size:1.5rem;display:block}
+.stat small{color:var(--muted)}
+.progress-wrap{max-width:1100px;margin:8px auto;padding:0 16px}
+.progress{background:var(--card);border:1px solid var(--border);border-radius:999px;height:14px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--green));transition:width .4s;border-radius:999px}
+.progress-label{display:flex;justify-content:space-between;color:var(--muted);font-size:.88rem;margin-top:6px}
+.toolbar{max-width:1100px;margin:12px auto;padding:0 16px;display:flex;gap:9px;flex-wrap:wrap;justify-content:center}
+.chips{max-width:1100px;margin:8px auto;padding:0 16px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.chip{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:5px 14px;cursor:pointer;font-family:inherit;font-weight:700;font-size:.85rem}
+.chip.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1c1503;border-color:transparent}
+.search-wrap{max-width:1100px;margin:8px auto;padding:0 16px}
+.search{width:100%;padding:12px 18px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:inherit;font-size:1em;outline:none}
+.search:focus{border-color:var(--gold)}
+main{max-width:1100px;margin:auto;padding:16px 16px 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:16px;align-items:start}
+.q{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;position:relative}
+.q::before{content:"";position:absolute;top:0;right:0;left:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.q.right{border-color:var(--green)}
+.q.right::before{background:linear-gradient(90deg,var(--green),var(--gold2))}
+.q.wrong{border-color:var(--red)}
+.q.wrong::before{background:linear-gradient(90deg,var(--red),var(--gold))}
+.q-inner{padding:18px;display:flex;flex-direction:column;gap:11px}
+.q-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.q-num{background:var(--text);color:var(--bg);border-radius:999px;padding:2px 12px;font-weight:800;font-size:.82rem}
+.q-tag{font-size:.76rem;font-weight:800;padding:3px 11px;border-radius:999px;background:var(--gold-soft);color:var(--gold);border:1px solid var(--border)}
+.q-text{font-weight:700;font-size:1.04rem;line-height:1.95;margin:0}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;gap:9px;width:100%;text-align:right;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:12px;padding:10px 12px;cursor:pointer;font-family:inherit;font-size:.94rem;line-height:1.85;transition:.15s}
+.opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-soft)}
+.opt:disabled{cursor:default}
+.opt b{flex:0 0 auto;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--card);border:1px solid var(--border);font-size:.8rem;font-weight:800}
+.opt.correct{background:var(--green-soft);border-color:var(--green)}
+.opt.correct b{background:var(--green);color:#fff;border-color:transparent}
+.opt.chosen{background:var(--red-soft);border-color:var(--red)}
+.opt.chosen b{background:var(--red);color:#fff;border-color:transparent}
+.verdict{font-weight:800;font-size:.95rem}
+.verdict.ok{color:var(--green)}
+.verdict.no{color:var(--red)}
+.ev{background:var(--gold-soft);border-right:3px solid var(--gold);border-radius:10px;padding:10px 13px;font-size:.9rem;line-height:2}
+.ev .lbl{font-weight:800;color:var(--gold);display:block;font-size:.82rem;margin-bottom:2px}
+.ev .txt{font-family:'Amiri Quran','Cairo',serif;font-size:1.06em;color:var(--text)}
+.q-btns{display:flex;gap:7px;flex-wrap:wrap}
+.q-btns .btn{font-size:.82rem;padding:5px 12px}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:36px;background:var(--card);border:1px dashed var(--border);border-radius:var(--radius)}
+footer{text-align:center;color:var(--muted);padding:30px 16px;border-top:1px solid var(--border);font-size:.88em}
+footer a{color:var(--gold)}
+.fab{position:fixed;bottom:20px;left:20px;display:flex;flex-direction:column;gap:10px;z-index:30}
+.fab button{width:52px;height:52px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:21px;cursor:pointer;box-shadow:var(--shadow)}
+#toast{position:fixed;bottom:26px;right:50%;transform:translateX(50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 22px;border-radius:999px;font-weight:700;opacity:0;pointer-events:none;transition:.3s;z-index:50;font-size:.92rem}
+#toast.show{opacity:1;transform:translateX(50%) translateY(0)}
+@media(max-width:900px){main{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
+@media print{
+  header,.toolbar,.search-wrap,.fab,#toast,.q-btns,.chips,.progress-wrap{display:none !important}
+  body{background:#fff;color:#000;font-size:13px}
+  main{display:block;padding:0}
+  .q{box-shadow:none;border:1px solid #bbb;break-inside:avoid;margin-bottom:10px}
+  .q::before{display:none}
+  .ev{background:none;border:1px solid #ccc}
+  .opt{background:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">
+      <div class="logo-mark">؟</div>
+      <div>اختبار الأسماء الحسنى<small>أسئلة اختيار من متعدد مع الدليل</small></div>
+    </div>
+    <div class="spacer"></div>
+    <nav class="pages">
+      <a href="qawaid-book.html">📖 الكتاب</a>
+      <a href="qawaid-quiz.html" class="active">📝 الاختبار</a>
+      <a href="qawaid-original.html">🗂️ PDF</a>
+      <a href="asmaa-99.html">✨ الأسماء</a>
+    </nav>
+    <div class="tool-group" title="حجم الخط">
+      <button onclick="changeFont(-1)">أ−</button>
+      <span id="fsLabel">100%</span>
+      <button onclick="changeFont(1)">أ+</button>
+    </div>
+    <button class="btn" id="themeBtn" onclick="toggleTheme()">🌙 ليلي</button>
+    <a class="btn btn-gold" href="qawaid-original.html">📄 قراءة الكتاب PDF</a>
+  <button class="btn" onclick="copyAll()">📋 نسخ الكل</button>
+    <button class="btn btn-gold" onclick="window.print()">🖨️ طباعة</button>
+  </div>
+</header>
+
+<div class="hero">
+  <span class="kicker">اختبار تفاعلي — مبني على نص «فائدة جليلة في قواعد الأسماء الحسنى» لابن القيم</span>
+  <h1>اختبار <span>أسماء الله الحسنى</span></h1>
+  <p>52 سؤالاً اختيار من متعدد، وكل سؤال معه نصٌّ حرفي من الكتاب يثبت الإجابة. اختر ثم اقرأ الدليل، واستعن بالحروف (أ ب ج د) من لوحة المفاتيح للإجابة عن السؤال التالي مباشرة.</p>
+</div>
+
+<div class="stats">
+  <div class="stat"><b id="sTotal">0</b><small>مجموع الأسئلة</small></div>
+  <div class="stat"><b id="sDone">0</b><small>تمت الإجابة</small></div>
+  <div class="stat"><b id="sRight" style="color:var(--green)">0</b><small>إجابة صحيحة</small></div>
+  <div class="stat"><b id="sPct" style="color:var(--gold)">0%</b><small>نسبة الإتقان</small></div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress"><i id="bar"></i></div>
+  <div class="progress-label"><span id="barText">0 / 0</span><span>﴿ وَفَوْقَ كُلِّ ذِي عِلْمٍ عَلِيمٌ ﴾</span></div>
+</div>
+
+<div class="toolbar">
+  <button class="btn" onclick="revealAll()">👁️ كشف كل الإجابات</button>
+  <button class="btn" onclick="resetQuiz()">↺ إعادة المحاولة</button>
+  <button class="btn" onclick="copyResult()">📊 نسخ النتيجة</button>
+  <a class="btn" href="qawaid-book.html">📖 رجوع إلى نص القاعدة</a>
+  <a class="btn" href="qawaid-original.html">📄 نسخة PDF</a>
+</div>
+
+<div class="chips" id="chips"></div>
+
+<div class="search-wrap">
+  <input class="search" id="search" placeholder="🔍 ابحث في الأسئلة أو الأدلة... مثال: الصمد، الإلحاد، توقيفي" oninput="render()">
+</div>
+
+<main id="list"></main>
+
+<footer>
+  الأسئلة مستخلصة من «فائدة جليلة في قواعد الأسماء الحسنى» — بدائع الفوائد (1/159-170) • تحقيق عبد الرزاق البدر<br>
+  <a href="qawaid-book.html">📖 نص القاعدة</a> •
+  <a href="qawaid-original.html">🗂️ PDF الأصلي</a> •
+  <a href="asmaa-allah-al-husna.html">📖 الأسماء الحسنى الـ99</a>
+</footer>
+
+<div class="fab"><button onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button></div>
+<div id="toast"></div>
+
+<script>
+const QUESTIONS = [
+{q:"كم عدد الأقسام التي يقسم بها ابن القيم ما يوصف به الرب تبارك وتعالى؟",
+ o:["ثلاثة أقسام","أربعة أقسام","خمسة أقسام","ستة أقسام"],a:2,t:"القاعدة الأم",
+ e:"«أحدها: ما يرجع إلى نفس الذات... الثاني: ما يرجع إلى صفات معنوية... الثالث: ما يرجع إلى أفعاله... الرابع: ما يرجع إلى التنزيه المحض... والخامس: — ولم يذكره أكثر الناس — وهو الاسم الدال على جملة أوصاف عديدة»."},
+
+{q:"ما هو القسم الأول: ما يرجع إلى نفس الذات؟",
+ o:["كالعليم والقدير والسميع","كالخالق والرزاق","كذات وموجود وشيء","كالقدوس والسلام"],a:2,t:"القاعدة الأم",
+ e:"«أحدها: ما يرجع إلى نفس الذات؛ كقولك: ذات وموجود وشيء. الثاني: ما يرجع إلى صفات معنوية؛ كالعليم والقدير والسميع. الثالث: ما يرجع إلى أفعاله؛ نحو: الخالق والرزاق»."},
+
+{q:"ما هو القسم الرابع الذي يرجع إلى التنزيه المحض؟ ولماذا لا يثبت منفرداً؟",
+ o:["كالعليم والسميع، لأنه صفات معنوية","كالقدوس والسلام، ولابد من تضمنه ثبوتاً إذ لا كمال في العدم المحض","كالخالق والرازق، لأنه أفعال","كالمجيد والعظيم، لأنه أسماء جامعة"],a:1,t:"القاعدة الأم",
+ e:"«الرابع: ما يرجع إلى التنزيه المحض. ولابد من تضمنه ثبوتاً، إذ لا كمال في العدم المحض؛ كالقدوس والسلام»."},
+
+{q:"ما هو القسم الخامس الذي لم يذكره أكثر الناس؟",
+ o:["ما يرجع إلى صفات معنوية","الاسم الدال على جملة أوصاف عديدة لا تختص بصفة معينة بل يدل على معانٍ لا على معنى مفرد","ما يرجع إلى أفعاله المنكسرة","صفات السلب المحضة"],a:1,t:"القاعدة الأم",
+ e:"«الخامس: — ولم يذكره أكثر الناس — وهو الاسم الدال على جملة أوصاف عديدة لا تختص بصفة معينة، بل هو دال على معانٍ لا على معنى مفرد؛ نحو: المجيد العظيم الصمد»."},
+
+{q:"ما معنى قول ابن القيم في ﴿ذو العرش المجيد﴾؟",
+ o:["أن المجيد اسم من أسماء الجاهلية كان يُطلق على الأصنام","أن المجيد صفة للعرش لسعته وعظمته وشرفه","أن العرش هو الله سبحانه","أن المجيد من صفات الأفعال لا الذات"],a:1,t:"القاعدة الأم",
+ e:"«ومنه قوله تعالى: ﴿ ذُو الْعَرْشِ الْمَجِيدُ ﴾ — صفة للعرش لسعته وعظمته وشرفه. وتأمل كيف جاء هذا الاسم مقترناً بطلب الصلاة على رسوله كما علمناه ﷺ، لأنه في مقام طلب المزيد والتعرض لسعة العطاء»."},
+
+{q:"من قال في تفسير «الصمد»: «هو السيد الذي انتهى سؤدده»؟",
+ o:["ابن عباس","أبو وائل","عكرمة","الزجاج"],a:1,t:"الأسماء الجامعة",
+ e:"«وقال ابن عباس: «هو السيد الذي كمل في سودده». وقال أبو وائل: «هو السيد الذي انتهى سؤدده». وقال عكرمة: «الذي ليس فوقه أحد». وقال الزجاج: «الذي ينتهي إليه السودد فقد صمد له كل شيء»»."},
+
+{q:"ما تفسير الزجاج لاسم «الصمد»؟",
+ o:["الذي ليس فوقه أحد","السيد الذي كمل في سودده","الذي ينتهي إليه السودد فقد صمد له كل شيء","الذي كمل في سؤدده وشرفه وعظمته"],a:2,t:"الأسماء الجامعة",
+ e:"«وقال الزجاج: «الذي ينتهي إليه السودد فقد صمد له كل شيء»»."},
+
+{q:"ما وصفُ ابن القيم لاسمَي «العظيم» و«الصمد»؟",
+ o:["أنهما من صفات السلب المحض","أنهما اسم دال على عدة صفات، فمن اتصف بصفات كثيرة من صفات الكمال","أنهما أسماء مترادفة لا يفرق بينهما","أنهما اسم أفعال مشتق من الفعلين عظُمَ وصَمِدَ"],a:1,t:"الأسماء الجامعة",
+ e:"«فالعظيم: من اتصف بصفات كثيرة من صفات الكمال. وكذلك الصمد»."},
+
+{q:"فائدة «الغني الحميد، العفو القدير، الحميد المجيد» تُفيد أن:",
+ o:["الأسماء الحسنى مترادفة كلها","صفة تحصل من اقتران أحد الاسمين بالآخر، وذلك قدر زائد على مفرديهما","الأسماء توقيفية فلا يقاس على غيرها","صفات الأفعال أشرف من صفات المعاني"],a:1,t:"اقتران الأسماء",
+ e:"«صفة تحصل من اقتران أحد الاسمين والوصفين بالآخر، وذلك قدر زائد على مفرديهما؛ نحو: الغني الحميد، العفو القدير، الحميد المجيد»."},
+
+{q:"ما معنى قول ابن القيم: «فإن الغنى صفة كمال، والحمد كذلك، واجتماع الغنى مع الحمد كمال آخر»؟",
+ o:["أن الغنى والحمد مترادفان","أن اجتماعهما يورث ثناءً زائداً ثنائين، زيادة على ثناء كل منهما وحده","أن الحمد أدنى من الغنى","أنهما صفتان منفصلتان لا تجتمعان في موضع واحد"],a:1,t:"اقتران الأسماء",
+ e:"«فإن الغنى صفة كمال، والحمد كذلك، واجتماع الغنى مع الحمد كمال آخر؛ فله ثناء من غناه، وثناء من حمده، وثناء من اجتماعهما»."},
+
+{q:"﴿لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ﴾ متضمن لكمال:",
+ o:["حياته وقيوميته","قدرته","علمه","صمديته"],a:0,t:"السلب والثبوت",
+ e:"«وكذلك الإخبار عنه بالسلوب إنما هو لتضمنها ثبوتاً؛ كقوله تعالى: ﴿ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ﴾ فإنه متضمن لكمال حياته وقيوميته»."},
+
+{q:"﴿وَمَا يَعْزُبُ عَن رَّبِّكَ مِن مِّثْقَالِ ذَرَّةٍ﴾ متضمن لكمال:",
+ o:["السمع","العلم","البصر","القدرة"],a:1,t:"السلب والثبوت",
+ e:"«وقوله: ﴿ وَمَا يَعْزُبُ عَن رَّبِّكَ مِن مِّثْقَالِ ذَرَّةٍ ﴾ متضمن لكمال علمه»."},
+
+{q:"﴿لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ﴾ متضمن لكمال:",
+ o:["العظمة","الصمديته وتفرده","القيومية","الحلم"],a:1,t:"السلب والثبوت",
+ e:"«وقوله: ﴿ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ ﴾ متضمن لكمال صمديته وتفرده»."},
+
+{q:"ما القاعدة التي أفادها القسم الأول عند ابن القيم؟",
+ o:["أن ما يدخل في باب الإخبار أوسع مما يدخل في باب الأسماء وصفاته","أن الأسماء كلها مترادفة","أن صفات السلب لا تدخل في أوصافه تعالى","أن الاسم لا يُشتق منه فعل ولا مصدر"],a:0,t:"الإخبار والأسماء",
+ e:"«أحدها: أن ما يدخل في باب الإخبار عنه تعالى أوسع مما يدخل في باب أسمائه وصفاته؛ كالشيء والموجود والقائم بنفسه؛ فإنه يخبر به عنه ولا يدخل في أسمائه الحسنى وصفاته العليا»."},
+
+{q:"لماذا غلط من سمّى الله سبحانه «الصانع» عند الإطلاق؟",
+ o:["لأن الصانع يدل على الحدوث والخلق","لأن هذه الصفة منقسمة إلى كمال ونقص فلا تدخل بمطلقها في أسمائه، والصانع في حقه «الفعّال لما يريد»","لأن الصانع اسم جامع يدل على صفات متعددة","لأن الصانع اسم لم يرد في القرآن ولا في السنة"],a:1,t:"الإخبار والأسماء",
+ e:"«الثاني: أن الصفة إذا كانت منقسمة إلى كمال ونقص لم تدخل بمطلقها في أسمائه، كالمريد والفاعل والصانع؛ فإن هذه الألفاظ لا تدخل في أسمائه. ولهذا غلط من سماه بالصانع عند الإطلاق، بل هو الفعال لما يريد»."},
+
+{q:"ما الحكم في من زعم أن «المضل، الفاتن، الماكر» من الأسماء الحسنى المطلقة؟",
+ o:["الصواب أنهم من أسمائه الحسنى كغيرها","أنها لم يطلق عليه سبحانه منها إلا أفعالاً مخصوصة معينة، فلا يجوز أن يسمى بأسمائها المطلقة","أنها أسماء صفات سلب","أنها أسماء مشتركة بينه وبين خلقه"],a:1,t:"الإخبار والأسماء",
+ e:"«الثالث: أنه لا يلزم من الإخبار عنه بالفعل مقيداً أن يشتق له منه اسم مطلق؛ كما غلط فيه بعض المتأخرين فجعل من أسمائه الحسنى: المضل الفاتن الماكر؛ فإن هذه الأسماء لم يطلق عليه سبحانه منها إلا أفعال مخصوصة معينة»."},
+
+{q:"ما الفرق بين أسماء الله الحسنى وأوصاف العباد من حيث نفي العلم؟",
+ o:["لا فرق بينهما","أسماء الله أعلام وأوصاف، والوصف بها لا ينافي العلمية، بخلاف أوصاف العباد فإنها تنافي علميتهم","أسماء الله صفات مجردة من العلم","أوصاف العباد أعلم من صفات الله"],a:1,t:"دلالات الأسماء",
+ e:"«الرابع: أن أسماءه الحسنى هي أعلام وأوصاف، والوصف بها لا ينافي العلمية؛ بخلاف أوصاف العباد فإنها تنافي علميتهم، لأن أوصافهم مشتركة فنافتها العلمية المختصة؛ بخلاف أوصافه تعالى»."},
+
+{q:"ما دلالات الاسم من حيث المعاني عند ابن القيم؟ كم عددها وما هي؟",
+ o:["دلالتان: المطابقة واللزوم","ثلاث دلالات: بالمطابقة، وبالتضمن، وباللزوم","أربع دلالات","دلالة واحدة وهي المطابقة"],a:1,t:"دلالات الأسماء",
+ e:"«الخامس: أن اسمأ له دلالات: دلالة على الذات والصفة بالمطابقة، ودلالة على أحدهما بالتضمن، ودلالة على الصفة الأخرى باللزوم. فاسم «الحي» دال على الذات وعلى صفة الحياة بالمطابقة»."},
+
+{q:"دلالة اسم «الحي» على صفة الحياة هي دلالة:",
+ o:["باللزوم","بالتضمن","بالإضافة","بالمقابلة"],a:0,t:"دلالات الأسماء",
+ e:"«فاسم «الحي» دال على الذات وعلى صفة الحياة بالمطابقة، ودال على أحدهما بالتضمن، ودلالة على الصفة الأخرى باللزوم» — أي أن الحياة بالشرط (المطابقة)، وذاته دون الحياة بالشرط (التضمن)، والسمع والبصر ونحوها باللزوم."},
+
+{q:"ما معنى: «فهي بالاعتبار الأول مترادفة، وبالاعتبار الثاني متباينة»؟",
+ o:["الأول: من حيث الصفات، والثاني: من حيث الذات","الأول: من حيث الذات، والثاني: من حيث الصفات","الأول: من حيث الفعل، والثاني: من حيث الاسم","الأول: مطلقاً، والثاني: مقيداً"],a:1,t:"دلالات الأسماء",
+ e:"«السادس: أن أسماءه الحسنى لها اعتباران: اعتبار من حيث الذات، واعتبار من حيث الصفات. فهي بالاعتبار الأول مترادفة، وبالاعتبار الثاني متباينة»."},
+
+{q:"ما الذي يوصف بأنه توقيفي عند ابن القيم؟",
+ o:["ما يطلق عليه في باب الإخبار","ما يطلق عليه في باب الأسماء والصفات، كالقديم والشيء والموجود","ما ورد في القرآن الكريم فقط","ما ورد في السنة النبوية فقط"],a:1,t:"التوقيف",
+ e:"«السابع: أن ما يطلق عليه في باب الأسماء والصفات توقيفي، وما يطلق عليه في باب الإخبار لا يجب أن يكون توقيفياً؛ كالقديم والشيء والموجود والقائم بنفسه»."},
+
+{q:"ما الذي تدل عليه قول ابن القيم في المشتق من أسماء الله الحسنى: ﴿قَدْ سَمِعَ اللَّهُ﴾، ﴿فَقَدَّرْنَا فَنِعْمَ الْقَادِرُونَ﴾؟",
+ o:["على جواز الاشتقاق: إذا كان الفعل متعدياً جاز الإخبار عنه بذلك الفعل","على أن المشتق لا يخبر به إلا لازماً","على أن المشتق لا يُذكر إلا في القرآن","على أن أسماء الله توقيفية"],a:0,t:"التوقيف",
+ e:"«الثامن: أن الاسم إذا أطلق عليه جاز أن يشتق منه المصدر والفعل؛ فيخبر به عنه فعلاً ومصدراً؛ نحو: السميع البصير القدير... ﴿ قَدْ سَمِعَ اللَّهُ ﴾، ﴿ فَقَدْرْنَا فَنِعْمَ الْقَادِرُونَ ﴾»."},
+
+{q:"متى لا يُخبر عن الله سبحانه بفعله المشتق من اسمه؟",
+ o:["إذا كان الفعل متعدياً","إذا كان الفعل لازماً؛ نحو: الحي، فلا يقال: حيّي","إذا كان الاسم من صفات السلب","إذا كان الاسم جامعاً"],a:1,t:"التوقيف",
+ e:"«هذا إن كان الفعل متعدياً، فإن كان لازماً لم يخبر عنه به؛ نحو: الحي، بل يطلق عليه الاسم والمصدر دون الفعل، فلا يقال: حيي»."},
+
+{q:"ما الفرق بين «أفعال الرب» و«أسماء المخلوقين» عند ابن القيم؟",
+ o:["أفعال الرب أشمل وأكمل لأن الرب كمل ففعل، والمخلوق فعل فكمل الكمال اللائق به","لا فرق بينهما","أسماء المخلوقين أشرف من أفعال الله","أفعال الرب صادرة عن أسمائه، وأسماء المخلوقين صادرة عن أفعالهم، وكلاهما سواء"],a:0,t:"الأفعال والإحصاء",
+ e:"«التاسع: أن أفعال الرب تبارك وتعالى صادرة عن أسمائه وصفاته، وأسماء المخلوقين صادرة عن أفعالهم؛ فالرب كمل ففعل، والمخلوق فعل فكمل الكمال اللائق به»."},
+
+{q:"ما معنى: «فاشتقت له الأسماء بعد أن كمل بالفعل»؟",
+ o:["أن المخلوق يكتسب صفاته بعد أن يعمل","أن الرب كمل بذاته وصفاته فأفعاله صادرة عن كماله، فاشتقت له الأسماء بعد كماله لا بعد فعله","أن الأسماء متأخرة عن الأفعال في الوجود عند الله","أن المخلوق أشرف من الله"],a:1,t:"الأفعال والإحصاء",
+ e:"«فإن الرب لم يزل كاملاً فحصلت أفعاله عن كماله، لأنه كامل بذاته وصفاته، فأفعاله صادرة عن كماله، كمل ففعل، والمخلوق فعل فكمل الكمال اللائق به»."},
+
+{q:"ما دلالة قول ابن القيم: «إن أسماءه الحسنى والعلم بها أصل للعلم بكل معلوم»؟",
+ o:["أن معرفة الأسماء باب إلى معرفة الأحكام والقوانين","أن معرفة الأسماء متعذّر بلوغها","أن معرفة الأسماء غاية لا وسيلة","أن معرفة الأسماء متاحة لكل أحد"],a:0,t:"الأفعال والإحصاء",
+ e:"«العاشر: إحصاء الأسماء الحسنى والعلم بها أصل للعلم بكل معلوم؛ فإن المعلومات سواء إما أن تكون خلقاً له تعالى أو أمراً؛ ومصدر الخلق والأمر عن أسمائه الحسنى»."},
+
+{q:"بماذا استدل ابن القيم على أن أفعال الله كلها خيرات محضة لا شر فيها؟",
+ o:["من قوله تعالى: ﴿وهو بكل شيء عليم﴾","من أن أسماءه كلها حسنى، ولم يُشتق له اسم من فعلٍ شرّ","من آية الكرسي","من حديث جبريل في الإيمان"],a:1,t:"الأفعال والحسن",
+ e:"«الحادي عشر: أن أسماءه كلها حسنى، وقد تقدم أن من أسمائه ما يطلق عليه باعتبار الفعل؛ نحو: الخالق والرازق والمحيي المميت؛ وهذا يدل على أن أفعاله كلها خيرات محضة لا شر فيها؛ لأنه لو فعل الشر لاشتُق له منه اسم ولم تكن أسماؤه كلها حسنى»."},
+
+{q:"ما الفرق بين الفعل والمفعول عند ابن القيم؟",
+ o:["لا فرق بينهما","الشر قائم بمفعوله المباين له، لا بفعله الذي هو فعله","الشر في فعله لا في مفعوله","الفعل خير والمفعول شر دائماً"],a:1,t:"الأفعال والحسن",
+ e:"«وفرق بين الفعل والمفعول؛ فالشر قائم بمفعوله المباين له، لا بفعله الذي هو فعله. فتأمل هذا فإنه خفي على كثير من المتكلمين»."},
+
+{q:"ما هي مراتب إحصاء أسماء الله الحسنى التي من أحصاها دخل الجنة؟",
+ o:["مرتبتان: إحصاء الألفاظ وفهم المعاني","ثلاث مراتب: إحصاء ألفاظها وعددها، وفهم معانيها ومدلولها، ودعاؤه بها","أربع مراتب","خمس مراتب"],a:1,t:"الإحصاء والدعاء",
+ e:"«الثاني عشر: في بيان مراتب إحصاء أسمائه التي من أحصاها دخل الجنة... المرتبة الأولى: إحصاء ألفاظها وعددها. المرتبة الثانية: فهم معانيها ومدلولها. المرتبة الثالثة: دعاؤه بها؛ كما قال تعالى: ﴿ فَادْعُوهُ بِهَا ﴾»."},
+
+{q:"دعاء الثناء والعبادة ودعاء الطلب والمسألة، هما تقابلان المرتبتين:",
+ o:["الثانية والثالثة من مراتب الإحصاء","الأولى والثانية من مراتب الإحصاء","الأولى والثالثة من مراتب الإحصاء","لا علاقة لهما بمراتب الإحصاء"],a:0,t:"الإحصاء والدعاء",
+ e:"«وهو مرتبتان: إحداهما: دعاء ثناء وعبادة. والثاني: دعاء طلب ومسألة» — فدعاء الثناء هو ثمرة فهم المعاني (المرتبة الثانية)، ودعاء الطلب هو ثمرة الدعاء بها (المرتبة الثالثة)."},
+
+{q:"ما حكم عبارة: «يتخلق بأسماء الله»؟",
+ o:["عبارة سديدة من كلام أهل السنة","ليست بعبارة سديدة، وهي منتزعة من قول الفلاسفة: التشبه بالإله على قدر الطاقة","من كلام ابن القيم نفسه","من القرآن الكريم"],a:1,t:"الإحصاء والدعاء",
+ e:"«وهذه العبارة أولى من عبارة من قال: يتخلق بأسماء الله، فإنها ليست بعبارة سديدة، وهي منتزعة من قول الفلاسفة: التشبه بالإله على قدر الطاقة»."},
+
+{q:"ما الحكم في الأسماء المشتركة بين الله والعبد، كالسميع والبصير؟",
+ o:["حقيقة في العبد ومجاز في الرب — وهو قول الجهمية","حقيقة في الرب ومجاز في العبد — وهو قول الناشي","حقيقة في الرب والعبد جميعاً، وهو قول أهل السنة وهو الصواب","مجهور في حقهما فلا حكم له"],a:2,t:"المشترك اللفظي",
+ e:"«الثالث: أنها حقيقة فيهما، وهذا قول أهل السنة، وهو الصواب. واختلاف الحقيقتين فيهما لا يخرجهما عن كونهما حقيقة فيهما»."},
+
+{q:"من القائل: «هي حقيقة في العبد ومجاز في الرب»؟ وكيف وصفه ابن القيم؟",
+ o:["أبو العباس الناشي","غلاة الجهمية، وقال: «وهو أخبث الأقوال»","أبو حنيفة","الفلاسفة"],a:1,t:"المشترك اللفظي",
+ e:"«فقالت طائفة من المتكلمين: هي حقيقة في العبد مجاز في الرب، وهذا قول غلاة الجهمية وهو أخبث الأقوال. الثاني: مقابله، وهو أنها حقيقة في الرب مجاز في العبد، وهذا قول أبي العباس الناشي»."},
+
+{q:"كم عدد اعتبارات الاسم والصفة من هذا النوع؟ وما هي؟",
+ o:["اعتباران: من حيث الذات، ومن حيث الصفات","ثلاثة اعتبارات: بلا تقييد، ومضافاً إلى الرب، ومضافاً إلى العبد","أربعة اعتبارات","خمسة اعتبارات"],a:1,t:"الاعتبارات",
+ e:"«الرابع عشر: أن الاسم والصفة من هذا النوع له ثلاث اعتبارات: اعتبار من حيث هو مع قطع النظر عن تقييده بالرب تبارك وتعالى أو العبد. الاعتبار الثاني: اعتباره مضافاً إلى الرب مختصاً به. الثالث: اعتباره مضافاً إلى العبد مقيداً به»."},
+
+{q:"في أي اعتبار يجب نفي الصفة عن الله تعالى؟",
+ o:["في الاعتبار الأول: من حيث هو بلا تقييد","في الاعتبار الثاني: مضافاً إلى الرب","في الاعتبار الثالث: مضافاً إلى العبد، كحياة العبد من النوم والسبنة والحاجة إلى الغذاء","في كل الاعتبارات"],a:2,t:"الاعتبارات",
+ e:"«2- وما لزم الصفة لإضافتها إلى العبد وجب نفيه عن الله؛ كما يلزم حياة العبد من النوم والسبنة والحاجة إلى الغذاء ونحو ذلك، وكذلك ما يلزم إرادته من حركة نفسه. كل هذا يجب نفيه عن القدوس السلام تبارك وتعالى»."},
+
+{q:"ما هو الاعتبار الثالث الذي لا يثبت للمخلوق بوجه؟",
+ o:["ما لزم الاسم لذاته كالسمع والبصر","ما لزم الصفة لإضافتها إلى العبد كالنوم والحاجة إلى الغذاء","ما لزم صفة من جهة اختصاصه تعالى بها كعلمه وإرادته وقدرته","ما لزم الصفة من جهة اللغة فقط"],a:2,t:"الاعتبارات",
+ e:"«3- وما لزم صفة من جهة اختصاصه تعالى بها فإنه لا يثبت للمخلوق بوجه؛ كعلمه الذي يلزمه القدم والوجوب والإحاطة بكل معلوم وقدرته وإرادته وسائر صفاته؛ فإن ما يختص به منها لا يمكن إثباته للمخلوق»."},
+
+{q:"ماذا يجب أن يلزم الصفة متى قامت بموصوف؟",
+ o:["أمر واحد لفظي فقط","أمران معنويان فقط","أربعة أمور: أمران لفظيان (ثبوتي وسلبي)، وأمران معنويان (ثبوتي وسلبي)","خمسة أمور"],a:2,t:"قيام الصفة",
+ e:"«الخامس عشر: أن الصفة متى قامت بموصوف لزمها أمور أربعة: أمران لفظيان، وأمران معنويان. فاللفظيان: ثبوتي وسلبي؛ فالثبوتي: أن يشتق للموصوف منها اسم، والسلبي: أن يمتنع الاشتقاق لغيره»."},
+
+{q:"ما مثال ذلك في صفة الكلام؟",
+ o:["إذا قامت بمحل كان هو المتكلم دون من لم تقم به، ولا يكون خبراً عنه سواه","إذا قامت بمحل امتنع العلم بها دائماً","إذا قامت بغير الموصوف","لا مثال له في الكتاب"],a:0,t:"قيام الصفة",
+ e:"«وهي قاعدة عظيمة في معرفة الأسماء والصفات. فمثال ذلك صفة الكلام: فإنها إذا قامت بمحل كان هو المتكلم دون من لم تقم به، وأخبر عنه بها وعاد حكمها إليه دون غيره»."},
+
+{q:"ما هي الأنواع الثلاثة للصفات عند ابن القيم؟",
+ o:["صفات كمال، صفات نقص، صفات لا تقتضي كمالاً ولا نقصاً","صفات ذات، صفات فعل، صفات سلب","صفات عظمة، صفات نزول، صفات ملك","صفات معاني، صفات أفعال، صفات تنزيه"],a:0,t:"أنواع الصفات",
+ e:"«الثامن عشر: أن الصفات ثلاثة أنواع: صفات كمال، صفات نقص، صفات لا تقتضي كمالاً ولا نقصاً. والرب تعالى منزه عن الأقسام الثلاثة، وموصوف بالقسم الأول وحده، وصفاته كلها صفات كمال محض»."},
+
+{q:"ما المقصود بـ«تفسير الاسم منها بغيره» عند ابن القيم؟",
+ o:["أن المعنىين مترادفان محضاً","أنه ليس تفسيراً بمرادف محض، بل هو على سبيل التقريب والتفهيم؛ فالعليم الخبير دون العاقل الفقيه، والسميع البصير دون السامع والباصر","أن الاسم يُفسَّر بغيره خطأً","أن بعض الأسماء أحسن من بعض"],a:1,t:"أنواع الصفات",
+ e:"«وليس في الأسماء أحسن منها ولا يقوم غيرها مقامها، وتفسير الاسم منها بغيره ليس تفسيراً بمرادف محض بل هو على سبيل التقريب والتفهيم. فله من صفة الإدراكات: العليم الخبير دون العاقل الفقيه، والسميع البصير دون السامع والباصر والناظر»."},
+
+{q:"هل الأسماء الحسنى داخلة تحت حصر وتحدّ بعدد؟ ولماذا؟",
+ o:["نعم، وهي تسعة وتسعون لا يزيد عليها ولا ينقص","لا تدخل تحت حصر ولا تحد بعدد؛ لقوله ﷺ: «أسألك بكل اسم هو لك سميت به نفسك، أو أنزلته في كتابك، أو استأثرت به في علم الغيب عندك»","نعم، وتُحصر عندهم بتسعة وتسعين","لا يعلم ذلك إلا النبي ﷺ وحده"],a:1,t:"عدم الحصر",
+ e:"«السادس عشر: أن الأسماء الحسنى لا تدخل تحت حصر ولا تحد بعدد؛ فإن لله تعالى أسماء وصفات استأثر بها في علم الغيب عنده لا يعلمها ملك مقرب ولا نبي مرسل»."},
+
+{q:"ما معنى قوله ﷺ في الحديث: «استأثرت به في علم الغيب عندك»؟",
+ o:["انفراده بالتسمي به دون غيره","انفراده بعلمه، وليس المراد انفراده بالتسمي به","أن الملائكة يجهلونه","أن الخلق لا يعلمون اسمه ولا صفاته"],a:1,t:"عدم الحصر",
+ e:"«وقوله «استأثرت به» أي: انفردت بعلمه، وليس المراد انفراده بالتسمي به»."},
+
+{q:"ما معنى قول ابن القيم: «وأما قوله ﷺ: إن لله تسعة وتسعين اسماً من أحصاها دخل الجنة فالكلام جملة واحدة، وقوله «من أحصاها» صفة لا خبر مستقل»؟",
+ o:["أن التسمية غير متحققة في حقه تعالى","أن التسمية متحققة، والمعنى: من أحصاها دخل الجنة، وهذا لا ينفي أن يكون له أسماء غيرها","أن الحديث موقوف ضعيف","أن التسعين اسماً مردودة"],a:1,t:"عدم الحصر",
+ e:"«وأما قوله ﷺ: «إن لله تسعة وتسعين اسماً من أحصاها دخل الجنة» فالكلام جملة واحدة، وقوله «من أحصاها» صفة لا خبر مستقل. والمعنى: من أحصاها دخل الجنة، وهذا لا ينفي أن يكون له أسماء غيرها»."},
+
+{q:"ما هي الأسماء التي لا يطلق عليه سبحانه بمفردها بل مقرونة بمقابلها؟",
+ o:["الغني الحميد، العفو القدير","السميع البصير، العليم الخبير","المانع، الضار، المنتقم","القوي المتين، العزيز الحكيم"],a:2,t:"الإفراد والاقتران",
+ e:"«ومنها ما لا يطلق عليه بمفرده بل مقروناً بمقابله؛ كالمانع والضار المنتقم؛ فلا يجوز أن يفرد هذا عن مقابله»."},
+
+{q:"ما الأسماء المقترنة التي ذكرها ابن القيم في مقابلته للمانع والضار والمنتقم؟",
+ o:["المعطي المانع، الضار النافع، المنتقم العفو، المعز المذل","الغني الحميد، العفو القدير","القوي المتين، العزيز الحكيم، الولي الحميد","الصمد، المجيد، العظيم، القدوس"],a:0,t:"الإفراد والاقتران",
+ e:"«فهو المعطي المانع، الضار النافع، المنتقم العفو، المعز المذل؛ لأن الكمال في اقتران كل اسم من هذه بما يقابله»."},
+
+{q:"ما معنى «لا يثبت للمخلوق وجهٌ مما يثبت للرب» في حق الأسماء الجامعة؟",
+ o:["أن الأسماء الجامعة لا تُثبت للرب أصلاً","أن الكمال في اقتران كل اسم بما يقابله، فلا يُثنى عليه بمجرد المنع والانتقام والإضرار","أن الأسماء الجامعة أسماء صفات سلب","أن الأسماء الجامعة خاصّة بالله لا يقال فيها غيره"],a:1,t:"الإفراد والاقتران",
+ e:"«وأما أن يثنى عليه بمجرد المنع والانتقام والإضرار فلا يسوغ. فالكمال في اقتران كل اسم من هذه بما يقابله»."},
+
+{q:"ما معنى قول ابن القيم: «ومن أسمائه ما يكون دالاً على عدة صفات ويكون ذلك الاسم متناولاً لجميعها»؟",
+ o:["أن بعض الأسماء يدل على صفات متعددة كالعظيم والمجيد والصمد، كقول ابن عباس في تفسير الصمد","أن بعض الأسماء يدل على معنى مفرد فقط","أن بعض الأسماء يدل على صفات سلب","أن بعض الأسماء مترادفة"],a:0,t:"الدلالة الواسعة",
+ e:"«التاسع عشر: إن من أسمائه الحسنى ما يكون دالاً على عدة صفات... كاسمه العظيم والمجيد والصمد؛ كما قال ابن عباس في تفسيره: «الصمد: السيد الذي قد كمل في سؤدده، والشريف الذي قد كمل في شرفه»»."},
+
+{q:"ما معنى قول ابن القيم: «فهذه عشرون فائدة» في آخر رسالته؟",
+ o:["أن ما تقدّم هو كل ما في الأسماء الحسنى","أن ما تقدّم من عشرين فائدة مضافةً إلى القاعدة الأولى التي بدأ بها، فينبغي معرفتها ومراعاتها","أن ما بعدها خطأ لا يُعتد به","أنها إحصاء تسعة وتسعين اسماً"],a:1,t:"الخاتمة",
+ e:"«فهذه عشرون فائدة مضافة إلى القاعدة التي بدأنا بها في أقسام ما يوصف به الرب تبارك وتعالى، فعليك بمعرفتها ومراعاتها»."},
+
+{q:"ما هي أنواع الإلحاد في أسماء الله تعالى؟",
+ o:["نوعان: نفي الصفة وإثباتها","ثلاثة أنواع: في الذوات، في الصفات، في الأفعال","خمسة أنواع: تسمية الأصنام بها، وتسميته بما لا يليق بجلاله، ووصفه بما يتعالى عنه، وتعطيل الأسماء عن معانيها، وتشبيه صفاته بصفات خلقه","سبعة أنواع"],a:2,t:"الإلحاد",
+ e:"«والإلحاد في أسمائه هو العدول بها وبحقائقها ومعانيها عن الحق الثابت لها، وهو مأخوذ من الميل. فالإلحاد في أسمائه أنواع:... خمسة»."},
+
+{q:"ما مثال «الإلحاد بالنفي» في أسماء الله تعالى؟",
+ o:["أن تصفه بما يتعالى عنه ويتقدس من النقائص؛ كقولهم: إنه فقير، أو إنه استراح بعد أن خلق خلقه","أن تسمّي الأصنام بأسماء الله","أن تعطل الأسماء عن معانيها","أن تشبه صفاته بصفات خلقه"],a:0,t:"الإلحاد",
+ e:"«وثالثها: وصفه بما يتعالى عنه ويتقدس من النقائص؛ كقول أخبث اليهود: إنه فقير، وقولهم: إنه استراح بعد أن خلق خلقه، وقولهم: يد الله مغلولة»."},
+
+{q:"ما معنى «الإلحاد بالتعطيل» عند ابن القيم؟",
+ o:["وصفه بما يتعالى عنه","تعطيل الأسماء عن معانيها وجحد حقائقها","تشبيه صفاته بصفات خلقه","تسمية الأصنام بها"],a:1,t:"الإلحاد",
+ e:"«ورابعها: تعطيل الأسماء عن معانيها وجحد حقائقها؛ كقول من يقول من الجهمية وأتباعهم: إنها ألفاظ مجردة لا تتضمن صفات ولا معاني»."},
+
+{q:"ما صفة جمعهم في جميع أنواع الإلحاد كما وصفها ابن القيم؟",
+ o:["أنهم أجمعوا على الباطل واختلفوا في تفاصيله","أنهم اختلفوا في الجملة وتفاضلوا في التفصيل","أنهم لم يتفقوا في شيء","أنهم محقون في الجملة"],a:0,t:"الإلحاد",
+ e:"«فجمعهم الإلحاد وتفرقت بهم طرقه. وبرأ الله أتباع رسوله وورثته القائمين بسنته عن ذلك كله، فلم يصفوه إلا بما وصف به نفسه، ولم يجحدوا صفاته، ولم يشبهوها بصفات خلقه»."}
+];
+
+let fs = parseInt(localStorage.getItem("qqz-fs")||"100");
+let theme = localStorage.getItem("qqz-theme")||"dark";
+let filter = "all";
+let answers = {};
+const LETTERS = ["أ","ب","ج","د"];
+
+function applySettings(){
+  document.documentElement.style.setProperty("--fs",(17*fs/100)+"px");
+  document.getElementById("fsLabel").textContent = fs+"%";
+  document.documentElement.setAttribute("data-theme",theme);
+  document.getElementById("themeBtn").textContent = theme==="dark" ? "☀️ نهاري" : "🌙 ليلي";
+}
+function changeFont(d){ fs=Math.min(160,Math.max(70,fs+d*10)); localStorage.setItem("qqz-fs",fs); applySettings(); }
+function toggleTheme(){ theme = theme==="dark" ? "light" : "dark"; localStorage.setItem("qqz-theme",theme); applySettings(); }
+function toast(m){ const t=document.getElementById("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),1800); }
+async function copyText(txt,msg){
+  try{ await navigator.clipboard.writeText(txt); toast(msg||"تم النسخ ✓"); }
+  catch(e){ const ta=document.createElement("textarea"); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy"); toast(msg||"تم النسخ ✓");}catch(_){toast("تعذر النسخ");} ta.remove(); }
+}
+function vis(){
+  const q = document.getElementById("search").value.trim();
+  return QUESTIONS.map((x,i)=>({...x,idx:i})).filter(x=>{
+    if(filter!=="all" && x.t!==filter) return false;
+    if(q && !(x.q.includes(q)||x.e.includes(q)||x.o.some(o=>o.includes(q)))) return false;
+    return true;
+  });
+}
+function answer(idx, choice){
+  if(answers[idx]!==undefined) return;
+  answers[idx]=choice;
+  render();
+  const nxt = vis().find(x=>answers[x.idx]===undefined);
+  if(nxt){ const el=document.getElementById("q"+nxt.idx); if(el) el.scrollIntoView({block:"center"}); }
+}
+function buildChips(){
+  const tags=[...new Set(QUESTIONS.map(q=>q.t))];
+  const box=document.getElementById("chips"); box.innerHTML="";
+  const mk=(label,val)=>{ const b=document.createElement("button"); b.className="chip"+(filter===val?" active":""); b.textContent=label;
+    b.onclick=()=>{ filter=val; buildChips(); render(); }; box.appendChild(b); };
+  mk("الكل ("+QUESTIONS.length+")","all");
+  tags.forEach(t=>mk(t+" ("+QUESTIONS.filter(q=>q.t===t).length+")",t));
+}
+function render(){
+  applySettings();
+  const list=document.getElementById("list"); list.innerHTML="";
+  const items=vis();
+  if(!items.length){ list.innerHTML='<div class="empty">لا توجد نتائج 🔍 — جرب كلمة أخرى</div>'; }
+  items.forEach(x=>{
+    const given=answers[x.idx];
+    const done=given!==undefined;
+    const ok=done && given===x.a;
+    const div=document.createElement("div");
+    div.className="q"+(done?(ok?" right":" wrong"):""); div.id="q"+x.idx;
+    div.innerHTML=
+      '<div class="q-inner">'+
+        '<div class="q-top"><span class="q-num">سؤال '+(x.idx+1)+'</span><span class="q-tag">'+x.t+'</span></div>'+
+        '<p class="q-text">'+x.q+'</p>'+
+        '<div class="opts">'+x.o.map((o,i)=>{
+            let cls="opt";
+            if(done){ if(i===x.a) cls+=" correct"; else if(i===given) cls+=" chosen"; }
+            return '<button class="'+cls+'" data-i="'+i+'"'+(done?" disabled":"")+'><b>'+LETTERS[i]+'</b><span>'+o+'</span></button>';
+          }).join("")+'</div>'+
+        (done?'<div class="verdict '+(ok?"ok":"no")+'">'+(ok?"✅ إجابة صحيحة":"❌ إجابة غير صحيحة — الصواب: "+LETTERS[x.a])+'</div>'+
+             '<div class="ev"><span class="lbl">📖 الدليل من الكتاب</span><span class="txt">'+x.e+'</span></div>'+
+             '<div class="q-btns"><button class="btn" onclick="copyQ('+x.idx+')">📋 نسخ السؤال</button></div>':'')+
+      '</div>';
+    list.appendChild(div);
+  });
+  list.querySelectorAll(".opt").forEach(b=>{
+    const owner=parseInt(b.closest(".q").id.replace("q",""));
+    b.onclick=()=>answer(owner, parseInt(b.dataset.i));
+  });
+  updateStats();
+}
+function updateStats(){
+  const ids = vis().map(x=>x.idx);
+  const done = ids.filter(i=>answers[i]!==undefined).length;
+  const right= ids.filter(i=>answers[i]===QUESTIONS[i].a).length;
+  const pct = done? Math.round(right/done*100):0;
+  document.getElementById("sTotal").textContent=ids.length;
+  document.getElementById("sDone").textContent=done;
+  document.getElementById("sRight").textContent=right;
+  document.getElementById("sPct").textContent=pct+"%";
+  document.getElementById("bar").style.width=(ids.length?done/ids.length*100:0)+"%";
+  document.getElementById("barText").textContent=done+" / "+ids.length+" تمت الإجابة";
+}
+function revealAll(){ QUESTIONS.forEach((x,i)=>{ if(answers[i]===undefined) answers[i]=x.a; }); render(); toast("تم كشف كل الإجابات"); }
+function resetQuiz(){ answers={}; render(); toast("تمت إعادة المحاولة ↺"); }
+function qText(i){
+  const q=QUESTIONS[i];
+  return "سؤال "+(i+1)+" ["+q.t+"]\n"+q.q+"\n"+
+    q.o.map((o,k)=>LETTERS[k]+") "+o).join("\n")+"\n"+
+    "✔ الصواب: "+LETTERS[q.a]+") "+q.o[q.a]+"\n📖 الدليل: "+q.e;
+}
+function copyQ(i){ copyText(qText(i),"تم نسخ السؤال "+(i+1)+" مع دليله ✓"); }
+function copyAll(){
+  copyText("اختبار قواعد الأسماء الحسنى — أسئلة مع الأدلة\n\n"+QUESTIONS.map((q,i)=>qText(i)).join("\n\n———\n\n"),"تم نسخ كل الأسئلة مع أدلتها ✓");
+}
+function copyResult(){
+  const ids=vis().map(x=>x.idx);
+  const done=ids.filter(i=>answers[i]!==undefined).length;
+  const right=ids.filter(i=>answers[i]===QUESTIONS[i].a).length;
+  copyText("نتيجة اختبار أسماء الله الحسنى\nالتاريخ: "+new Date().toLocaleDateString("ar")+"\nعدد الأسئلة: "+ids.length+"\nتمت الإجابة: "+done+"\nإجابات صحيحة: "+right+"\nنسبة الإتقان: "+(done?Math.round(right/done*100):0)+"%","تم نسخ النتيجة ✓");
+}
+document.addEventListener("keydown",e=>{
+  if(e.target.tagName==="INPUT") return;
+  const map={"أ":0,"ا":0,"ب":1,"ج":2,"د":3};
+  if(!(e.key in map)) return;
+  const target = document.querySelector(".q:not(.right):not(.wrong)");
+  if(!target) return;
+  answer(parseInt(target.id.replace("q","")), map[e.key]);
+});
+buildChips(); render();
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    var SW_FORCE = window.__ALLOW_SW__ === true;
+    var SW_DEV   = window.__DEV__ === true ||
+                   /^(localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])$/.test(location.hostname);
+    var SW_FRAME = window.self !== window.top;
+    var CAN_SW   = SW_FORCE || (location.protocol === 'https:' && !SW_DEV && !SW_FRAME && window.__ALLOW_SW__ !== false);
+if(CAN_SW && 'serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
+  });
+}
+</script>
+</body>
+</html>
