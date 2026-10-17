@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- تطبيق قابل للتثبيت -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0f1512">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<title>أسماء الله الحسنى | ٩٩ اسماً بالمعاني والدلائل</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f1e7; --card:#ffffff; --text:#2b2417; --muted:#8a7d63;
+  --gold:#b8860b; --gold2:#d4a017; --gold-soft:rgba(184,134,11,.12);
+  --border:#e8ddc3; --green:#1a7a4c; --shadow:0 10px 30px rgba(120,90,20,.10); --radius:18px;
+}
+[data-theme="dark"]{
+  --bg:#0f1512; --card:#1a2420; --text:#f0e8d5; --muted:#a99c80;
+  --gold:#e3b341; --gold2:#f5cf6a; --gold-soft:rgba(227,179,65,.12);
+  --border:#2c3a33; --green:#3dd68c; --shadow:0 10px 30px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Cairo',system-ui,sans-serif;background:radial-gradient(900px 420px at 50% -100px, var(--gold-soft), transparent),var(--bg);color:var(--text);font-size:var(--fs,17px);line-height:2.05;transition:background .3s,color .3s}
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:color-mix(in srgb, var(--bg) 92%, transparent);border-bottom:1px solid var(--border)}
+.nav{max-width:1200px;margin:auto;padding:11px 16px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.12rem}
+.logo-mark{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1a1405;box-shadow:var(--shadow);font-family:'Aref Ruqaa',serif}
+.logo small{display:block;font-size:.7rem;color:var(--muted);font-weight:600}
+.spacer{flex:1}
+.btn{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:7px 14px;cursor:pointer;font-family:inherit;font-weight:700;display:inline-flex;align-items:center;gap:6px;transition:.2s;font-size:.88rem;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--gold);transform:translateY(-1px)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;color:#1c1503}
+.pages{display:flex;gap:6px;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:4px}
+.pages a{border-radius:999px;padding:5px 12px;font-weight:800;font-size:.82rem;color:var(--text);text-decoration:none;white-space:nowrap;transition:.2s}
+.pages a:hover{background:var(--gold-soft)}
+.pages a.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1c1503}
+.tool-group{display:flex;gap:5px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:4px 6px}
+.tool-group button{border:none;background:transparent;color:var(--text);font-size:16px;width:30px;height:30px;border-radius:50%;cursor:pointer;font-weight:800}
+.tool-group button:hover{background:var(--gold-soft)}
+.tool-group span{font-weight:800;min-width:38px;text-align:center;font-size:.85rem}
+.hero{max-width:900px;margin:auto;padding:34px 16px 8px;text-align:center}
+.hero .kicker{display:inline-block;background:var(--gold-soft);border:1px solid var(--border);color:var(--gold);border-radius:999px;padding:5px 16px;font-weight:800;font-size:.88rem}
+.hero h1{font-family:'Reem Kufi','Cairo',sans-serif;font-size:clamp(1.8rem,4.8vw,2.9rem);margin:.4em 0;line-height:1.6}
+.hero h1 span{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);max-width:720px;margin:auto}
+.hadith{max-width:820px;margin:16px auto 0;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 20px;box-shadow:var(--shadow);font-family:'Amiri Quran',serif;font-size:1.18em;line-height:2.1}
+.hadith small{display:block;font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--muted);line-height:1.7}
+.stats{max-width:1200px;margin:16px auto;padding:0 16px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:11px;text-align:center;box-shadow:var(--shadow)}
+.stat b{font-size:1.4rem;display:block}
+.stat small{color:var(--muted)}
+.toolbar{max-width:1200px;margin:10px auto;padding:0 16px;display:flex;gap:9px;flex-wrap:wrap;justify-content:center}
+.search-wrap{max-width:1200px;margin:10px auto;padding:0 16px}
+.search{width:100%;padding:12px 18px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:inherit;font-size:1em;outline:none}
+.search:focus{border-color:var(--gold)}
+/* الفهرس */
+.index-sec{max-width:1200px;margin:14px auto;padding:0 16px}
+.index-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+.index-box h2{margin:0 0 3px;font-size:1.05rem}
+.index-box p{margin:0 0 10px;color:var(--muted);font-size:.86rem}
+.index-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:6px;max-height:210px;overflow:auto;padding:3px}
+.index-grid a{text-decoration:none;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:6px 7px;font-size:.84rem;font-weight:700;text-align:center;transition:.15s;display:block}
+.index-grid a:hover,.index-grid a.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1c1503;border-color:transparent}
+/* البطاقات */
+main{max-width:1200px;margin:auto;padding:18px 16px 70px;display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:15px;align-items:start}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;position:relative;display:flex;flex-direction:column;scroll-margin-top:100px}
+.card::before{content:"";position:absolute;top:0;right:0;left:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--green))}
+.card.flash{animation:flash .9s ease}
+@keyframes flash{0%{box-shadow:0 0 0 0 rgba(212,160,23,.65)}100%{box-shadow:0 0 0 16px rgba(212,160,23,0)}}
+.card-inner{padding:18px;display:flex;flex-direction:column;gap:10px;height:100%}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.num{font-weight:800;font-size:.8rem;background:var(--text);color:var(--bg);border-radius:999px;padding:2px 11px}
+.badge{font-size:.74rem;font-weight:800;padding:3px 10px;border-radius:999px;background:var(--gold-soft);color:var(--gold);border:1px solid var(--border)}
+.name{font-family:'Aref Ruqaa','Amiri Quran',serif;font-size:2.1rem;text-align:center;line-height:1.7;margin:2px 0;color:var(--text)}
+.meaning{background:var(--bg);border:1px dashed var(--border);border-radius:12px;padding:10px 13px;font-size:.94rem;line-height:1.95}
+.meaning b{color:var(--gold)}
+.dalil{font-family:'Amiri Quran',serif;font-size:1.02rem;color:var(--muted);background:var(--gold-soft);border-radius:10px;padding:8px 12px;border-right:3px solid var(--gold);line-height:1.95}
+.card-btns{display:flex;gap:7px;margin-top:auto}
+.card-btns .btn{flex:1;justify-content:center;font-size:.82rem;padding:6px 10px}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:36px;background:var(--card);border:1px dashed var(--border);border-radius:var(--radius)}
+footer{text-align:center;color:var(--muted);padding:28px 16px;border-top:1px solid var(--border);font-size:.88em}
+footer a{color:var(--gold)}
+.fab{position:fixed;bottom:20px;left:20px;display:flex;flex-direction:column;gap:10px;z-index:30}
+.fab button{width:52px;height:52px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:21px;cursor:pointer;box-shadow:var(--shadow)}
+#toast{position:fixed;bottom:26px;right:50%;transform:translateX(50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 22px;border-radius:999px;font-weight:700;opacity:0;pointer-events:none;transition:.3s;z-index:50;font-size:.9rem}
+#toast.show{opacity:1;transform:translateX(50%) translateY(0)}
+@media(max-width:600px){.stats{grid-template-columns:1fr 1fr}.stat b{font-size:1.1rem}main{grid-template-columns:1fr}}
+@page{size:A4;margin:16mm 14mm}
+@media print{
+  header,.toolbar,.search-wrap,.index-sec,.fab,#toast,.card-btns{display:none !important}
+  body{background:#fff;color:#000;font-size:13px}
+  main{display:block;padding:0}
+  .card{box-shadow:none;border:1px solid #bbb;break-inside:avoid;margin-bottom:9px}
+  .card::before{display:none}
+  .meaning,.dalil{background:none;border:1px solid #ddd}
+  .name{font-size:20px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">
+      <div class="logo-mark">ٱ</div>
+      <div>أسماء الله الحسنى<small>٩٩ اسماً • المعاني والدلائل</small></div>
+    </div>
+    <div class="spacer"></div>
+    <nav class="pages">
+      <a href="qawaid-book.html">📖 الكتاب</a>
+      <a href="qawaid-quiz.html">📝 الاختبار</a>
+      <a href="qawaid-original.html">🗂️ PDF</a>
+      <a href="asmaa-allah-al-husna.html" class="active">✨ الأسماء</a>
+    </nav>
+    <div class="tool-group" title="حجم الخط">
+      <button onclick="changeFont(-1)">أ−</button>
+      <span id="fsLabel">100%</span>
+      <button onclick="changeFont(1)">أ+</button>
+    </div>
+    <button class="btn" id="themeBtn" onclick="toggleTheme()">🌙 ليلي</button>
+    <button class="btn btn-gold" onclick="window.print()">🖨️ طباعة</button>
+  </div>
+</header>
+
+<div class="hero">
+  <span class="kicker">من كتاب «بدائع الفوائد» لابن القيم — ترتيب حديث الترمذي</span>
+  <h1>أسماء الله <span>الحسنى</span></h1>
+  <p>تسعة وتسعون اسماً لكل اسمٍ معناه ودليله من القرآن أو السنة. اضغط على اسم في الفهرس للانتقال إليه مباشرة.</p>
+  <div class="hadith">
+    ﴿ وَلِلَّهِ الْأَسْمَاءُ الْحُسْنَىٰ فَادْعُوهُ بِهَا ﴾
+    <small>سورة الأعراف : 180<br>قال ﷺ : « إنَّ للهِ تسعةً وتسعين اسمًا، مائةً إلَّا واحدًا، مَن أحصاها دخل الجنَّة » — متفق عليه</small>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><b>99</b><small>اسماً حسناً</small></div>
+  <div class="stat"><b id="shownCount">99</b><small>ظاهر في العرض</small></div>
+  <div class="stat"><b>99</b><small>دليلاً من القرآن والسنة</small></div>
+  <div class="stat"><b>100%</b><small>نسخ وطباعة مجانية</small></div>
+</div>
+
+<div class="toolbar">
+  <button class="btn btn-gold" onclick="copyAll()">📋 نسخ جميع الأسماء</button>
+  <button class="btn" onclick="copyMeanings()">📝 نسخ الأسماء بمعانيها</button>
+  <button class="btn" onclick="copyAllFull()">📚 نسخ مع الأدلة</button>
+  <button class="btn" onclick="window.print()">🖨️ طباعة</button>
+</div>
+
+<div class="search-wrap">
+  <input class="search" id="search" placeholder="🔍 ابحث باسم أو معنى... مثال: الرحمن، الرزق، المغفرة" oninput="render()">
+</div>
+
+<section class="index-sec">
+  <div class="index-box">
+    <h2>📑 الفهرس — اضغط للانتقال</h2>
+    <p>الأرقام مطابقة لبطاقات الشرح بالأسفل.</p>
+    <div class="index-grid" id="indexGrid"></div>
+  </div>
+</section>
+
+<main id="list"></main>
+
+<footer>
+  المعاني مختصرة من كتب التفسير وشروح الأسماء الحسنى • الأسماء مثبتة من رواية الترمذي (3507)<br>
+  <a href="qawaid-book.html">📖 فائدة جليلة في قواعد الأسماء الحسنى</a> •
+  <a href="qawaid-quiz.html">📝 اختبار الأسماء</a> •
+  <a href="qawaid-original.html">🗂️ نسخة PDF</a><br>
+  صدقة جارية — انسخ وانشر واطبع ولك الأجر 🌙
+</footer>
+
+<div class="fab"><button onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button></div>
+<div id="toast"></div>
+
+<script>
+const NAMES = [
+["الله","الاسم الأعظم الجامع لجميع صفات الكمال، ومعناه المألوه المعبود وحده.","﴿ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ﴾"],
+["الرحمن","ذو الرحمة الواسعة التي وسعت كل شيء.","﴿ الرَّحْمَٰنُ عَلَى الْعَرْشِ اسْتَوَىٰ ﴾ [طه:5]"],
+["الرحيم","المنعم على عباده المؤمنين برحمته الخاصة.","﴿ وَكَانَ بِالْمُؤْمِنِينَ رَحِيمًا ﴾"],
+["الملك","المالك للملك المتصرف في خلقه كيف يشاء.","﴿ الْمَلِكُ الْقُدُّوسُ ﴾ [الحشر:23]"],
+["القدوس","المنزه عن كل نقص وعيب.","﴿ الْمَلِكُ الْقُدُّوسُ السَّلَامُ ﴾"],
+["السلام","السالم من كل عيب، ومُسلِّم عباده من الظلم.","﴿ السَّلَامُ الْمُؤْمِنُ الْمُهَيْمِنُ ﴾"],
+["المؤمن","المصدِّق رسله بالآيات، المؤمِّن عباده من الخوف.","﴿ السَّلَامُ الْمُؤْمِنُ ﴾"],
+["المهيمن","الرقيب الحافظ الشاهد على كل شيء.","﴿ الْمُؤْمِنُ الْمُهَيْمِنُ الْعَزِيزُ ﴾"],
+["العزيز","الغالب الذي لا يُقهَر.","﴿ وَهُوَ الْعَزِيزُ الْحَكِيمُ ﴾"],
+["الجبار","العظيم الذي يجبر الكسير ويقهر الجبابرة.","﴿ الْعَزِيزُ الْجَبَّارُ الْمُتَكَبِّرُ ﴾"],
+["المتكبر","المتعالي عن كل نقص وسوء.","﴿ الْجَبَّارُ الْمُتَكَبِّرُ ﴾"],
+["الخالق","المبدع للخلق من العدم.","﴿ هُوَ اللَّهُ الْخَالِقُ الْبَارِئُ ﴾"],
+["البارئ","المميز للخلق بعضهم من بعض بلا مثال سابق.","﴿ الْخَالِقُ الْبَارِئُ الْمُصَوِّرُ ﴾"],
+["المصور","الذي صور المخلوقات كما شاء.","﴿ الْبَارِئُ الْمُصَوِّرُ ﴾"],
+["الغفار","الذي يغفر الذنوب مهما تكررت.","﴿ إِنَّهُ هُوَ الْغَفَّارُ ﴾"],
+["القهار","الغالب لكل شيء بقدرته.","﴿ وَهُوَ الْوَاحِدُ الْقَهَّارُ ﴾"],
+["الوهاب","كثير العطاء بلا عوض ولا سؤال.","﴿ إِنَّكَ أَنْتَ الْوَهَّابُ ﴾"],
+["الرزاق","المتكفل بأرزاق العباد ظاهراً وباطناً.","﴿ إِنَّ اللَّهَ هُوَ الرَّزَّاقُ ﴾ [الذاريات:58]"],
+["الفتاح","الذي يفتح أبواب الرحمة والرزق والحكم بين عباده.","﴿ وَهُوَ الْفَتَّاحُ الْعَلِيمُ ﴾"],
+["العليم","المحيط علمه بكل شيء.","﴿ وَهُوَ بِكُلِّ شَيْءٍ عَلِيمٌ ﴾"],
+["القابض","الذي يقبض الرزق والأرواح بحكمته.","ورد في السنة: « إن الله هو القابض الباسط » — أبو داود"],
+["الباسط","الذي يبسط الرزق والرحمة لمن يشاء.","« إن الله هو القابض الباسط » — أبو داود"],
+["الخافض","يخفض الجبابرة والمستكبرين بعدله.","من الأسماء الثابتة في حديث الترمذي في تعداد الأسماء"],
+["الرافع","يرفع أولياءه بالطاعات ودرجات الإيمان.","﴿ رَفِيعُ الدَّرَجَاتِ ﴾"],
+["المعز","يُعز من يشاء بطاعته.","﴿ تُعِزُّ مَنْ تَشَاءُ ﴾ [آل عمران:26]"],
+["المذل","يُذل من يشاء بمعصيته وعدله.","﴿ وَتُذِلُّ مَنْ تَشَاءُ ﴾"],
+["السميع","الذي يسمع كل شيء ولا يخفى عليه صوت.","﴿ وَهُوَ السَّمِيعُ الْبَصِيرُ ﴾"],
+["البصير","الذي يرى كل شيء وإن دق وصغر.","﴿ وَهُوَ السَّمِيعُ الْبَصِيرُ ﴾"],
+["الحكم","الحاكم العدل الذي لا راد لقضائه.","« إن الله هو الحَكَم » — أبو داود"],
+["العدل","المنزه عن الظلم والجور في أقواله وأفعاله.","﴿ وَتَمَّتْ كَلِمَتُ رَبِّكَ صِدْقًا وَعَدْلًا ﴾"],
+["اللطيف","البر بعباده الرفيق بهم من حيث لا يشعرون.","﴿ وَهُوَ اللَّطِيفُ الْخَبِيرُ ﴾"],
+["الخبير","العليم ببواطن الأمور ودقائقها.","﴿ وَهُوَ اللَّطِيفُ الْخَبِيرُ ﴾"],
+["الحليم","الذي لا يعاجل العصاة بالعقوبة.","﴿ وَكَانَ اللَّهُ عَلِيمًا حَلِيمًا ﴾"],
+["العظيم","ذو العظمة والجلال في ذاته وصفاته.","﴿ وَهُوَ الْعَلِيُّ الْعَظِيمُ ﴾"],
+["الغفور","الساتر لذنوب عباده المتجاوز عنها.","﴿ وَهُوَ الْغَفُورُ الْوَدُودُ ﴾"],
+["الشكور","الذي يجازي على العمل القليل بالأجر الكثير.","﴿ إِنَّهُ غَفُورٌ شَكُورٌ ﴾"],
+["العلي","المتعالي فوق خلقه بذاته وقهره وصفاته.","﴿ وَهُوَ الْعَلِيُّ الْعَظِيمُ ﴾"],
+["الكبير","الأكبر من كل شيء ذاتاً ووصفاً.","﴿ إِنَّ اللَّهَ كَانَ عَلِيًّا كَبِيرًا ﴾"],
+["الحفيظ","الحافظ لكل شيء من الزوال.","﴿ وَرَبُّكَ عَلَىٰ كُلِّ شَيْءٍ حَفِيظٌ ﴾"],
+["المقيت","المقتدر الموصل لكل مخلوق ما يقوته.","﴿ وَكَانَ اللَّهُ عَلَىٰ كُلِّ شَيْءٍ مُقِيتًا ﴾"],
+["الحسيب","الكافي عباده، المحاسب لهم على أعمالهم.","﴿ وَكَفَىٰ بِاللَّهِ حَسِيبًا ﴾"],
+["الجليل","الموصوف بصفات الجلال والعظمة.","﴿ ذُو الْجَلَالِ وَالْإِكْرَامِ ﴾"],
+["الكريم","كثير الخير والعطاء بلا مقابل.","﴿ فَإِنَّ رَبِّي غَنِيٌّ كَرِيمٌ ﴾"],
+["الرقيب","المطلع على كل شيء لا يغيب عنه شيء.","﴿ إِنَّ اللَّهَ كَانَ عَلَيْكُمْ رَقِيبًا ﴾"],
+["المجيب","الذي يجيب دعاء من دعاه.","﴿ إِنَّ رَبِّي قَرِيبٌ مُجِيبٌ ﴾"],
+["الواسع","الذي وسع كل شيء رحمة وعلماً وغنى.","﴿ وَاللَّهُ وَاسِعٌ عَلِيمٌ ﴾"],
+["الحكيم","المُحكِم لخلقه وأمره وشرعه.","﴿ وَهُوَ الْعَزِيزُ الْحَكِيمُ ﴾"],
+["الودود","المحب لعباده الصالحين المحبوب لهم.","﴿ وَهُوَ الْغَفُورُ الْوَدُودُ ﴾"],
+["المجيد","العظيم في ذاته وصفاته وأفعاله.","﴿ إِنَّهُ حَمِيدٌ مَجِيدٌ ﴾"],
+["الباعث","الذي يبعث الخلق يوم القيامة ويبعث الرسل.","﴿ وَأَنَّ اللَّهَ يَبْعَثُ مَنْ فِي الْقُبُورِ ﴾"],
+["الشهيد","الحاضر الذي لا يغيب عنه شيء.","﴿ إِنَّ اللَّهَ عَلَىٰ كُلِّ شَيْءٍ شَهِيدٌ ﴾"],
+["الحق","الثابت الذي لا شك في وجوده.","﴿ وَأَنَّ اللَّهَ هُوَ الْحَقُّ ﴾"],
+["الوكيل","الكفيل بأمور عباده القائم بها.","﴿ وَكَفَىٰ بِاللَّهِ وَكِيلًا ﴾"],
+["القوي","كامل القدرة الذي لا يعجزه شيء.","﴿ وَهُوَ الْقَوِيُّ الْعَزِيزُ ﴾"],
+["المتين","شديد القوة الذي لا يلحقه تعب.","﴿ وَهُوَ الْقَوِيُّ الْمَتِينُ ﴾ [الذاريات]"],
+["الولي","الناصر لعباده المتولي أمورهم.","﴿ وَهُوَ الْوَلِيُّ الْحَمِيدُ ﴾"],
+["الحميد","المستحق للحمد والثناء في كل حال.","﴿ إِنَّهُ حَمِيدٌ مَجِيدٌ ﴾"],
+["المحصي","الذي أحصى كل شيء عدداً وعلماً.","﴿ وَأَحْصَىٰ كُلَّ شَيْءٍ عَدَدًا ﴾"],
+["المبدئ","الذي بدأ الخلق واخترعه ابتداءً.","﴿ إِنَّهُ هُوَ يُبْدِئُ وَيُعِيدُ ﴾"],
+["المعيد","الذي يعيد الخلق بعد الموت للبعث.","﴿ إِنَّهُ هُوَ يُبْدِئُ وَيُعِيدُ ﴾"],
+["المحيي","واهب الحياة لمن يشاء.","﴿ وَهُوَ يُحْيِي الْمَوْتَىٰ ﴾"],
+["المميت","الذي قدر الموت على خلقه.","« إن الله هو المحيي المميت » — من تعداد الأسماء"],
+["الحي","الدائم الحياة الكاملة الذي لا يموت.","﴿ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ﴾"],
+["القيوم","القائم بنفسه المقيم لغيره.","﴿ الْحَيُّ الْقَيُّومُ ﴾"],
+["الواجد","الغني الذي لا يفتقر ويجد ما يريد.","من الأسماء الثابتة في حديث الترمذي"],
+["الماجد","العظيم في صفاته وأفعاله.","من الأسماء الثابتة في حديث الترمذي"],
+["الواحد","المتفرد بالألوهية لا شريك له.","﴿ وَهُوَ الْوَاحِدُ الْقَهَّارُ ﴾"],
+["الصمد","السيد المقصود في الحوائج.","﴿ اللَّهُ الصَّمَدُ ﴾ [الإخلاص:2]"],
+["القادر","التام القدرة يفعل ما يشاء.","﴿ إِنَّ اللَّهَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ ﴾"],
+["المقتدر","الكامل القدرة الذي لا يمتنع عليه شيء.","﴿ وَكَانَ اللَّهُ عَلَىٰ كُلِّ شَيْءٍ مُقْتَدِرًا ﴾"],
+["المقدم","الذي يقدم من يشاء بفضله.","« أنت المقدِّم والمؤخِّر » — متفق عليه من دعاء النبي ﷺ"],
+["المؤخر","الذي يؤخر من يشاء بعدله.","« أنت المقدِّم والمؤخِّر » — متفق عليه"],
+["الأول","الذي ليس قبله شيء.","﴿ هُوَ الْأَوَّلُ وَالْآخِرُ ﴾ [الحديد:3]"],
+["الآخر","الذي ليس بعده شيء.","﴿ هُوَ الْأَوَّلُ وَالْآخِرُ ﴾"],
+["الظاهر","الذي ليس فوقه شيء، الظاهر بحججه.","﴿ وَالظَّاهِرُ وَالْبَاطِنُ ﴾"],
+["الباطن","الذي ليس دونه شيء، المحتجب عن الأبصار.","﴿ وَالظَّاهِرُ وَالْبَاطِنُ ﴾"],
+["الوالي","المالك للأشياء المتصرف فيها.","﴿ وَمَا لَهُمْ مِنْ دُونِهِ مِنْ وَالٍ ﴾"],
+["المتعالي","المنزه عن كل سوء، العالي فوق كل شيء.","﴿ الْكَبِيرُ الْمُتَعَالِ ﴾"],
+["البر","كثير الإحسان واللطف بعباده.","﴿ إِنَّهُ هُوَ الْبَرُّ الرَّحِيمُ ﴾"],
+["التواب","الذي يقبل التوبة ويعفو عن السيئات.","﴿ وَأَنَّ اللَّهَ هُوَ التَّوَّابُ الرَّحِيمُ ﴾"],
+["المنتقم","الذي ينتقم ممن عصاه بعدله.","﴿ إِنَّ اللَّهَ عَزِيزٌ ذُو انْتِقَامٍ ﴾"],
+["العفو","الذي يمحو السيئات ويتجاوز عنها.","﴿ وَكَانَ اللَّهُ عَفُوًّا غَفُورًا ﴾"],
+["الرؤوف","شديد الرحمة بعباده.","﴿ إِنَّ اللَّهَ بِالنَّاسِ لَرَءُوفٌ رَحِيمٌ ﴾"],
+["مالك الملك","الذي يؤتي الملك من يشاء وينزعه ممن يشاء.","﴿ قُلِ اللَّهُمَّ مَالِكَ الْمُلْكِ ﴾ [آل عمران:26]"],
+["ذو الجلال والإكرام","المستحق وحده التعظيم والإكرام.","﴿ وَيَبْقَىٰ وَجْهُ رَبِّكَ ذُو الْجَلَالِ وَالْإِكْرَامِ ﴾"],
+["المقسط","العادل في حكمه الذي ينصف المظلوم.","من الأسماء الثابتة في حديث الترمذي"],
+["الجامع","الذي يجمع الخلائق ليوم الحساب ويجمع المتفرقات.","﴿ إِنَّ اللَّهَ يَجْمَعُ الْمُنَافِقِينَ ﴾ — ﴿ رَبَّنَا إِنَّكَ جَامِعُ النَّاسِ ﴾"],
+["الغني","المستغني عن كل ما سواه.","﴿ وَاللَّهُ الْغَنِيُّ وَأَنْتُمُ الْفُقَرَاءُ ﴾"],
+["المغني","الذي يغني من يشاء من عباده.","﴿ وَأَنَّهُ هُوَ أَغْنَىٰ وَأَقْنَىٰ ﴾"],
+["المانع","الذي يمنع العطاء عمن يشاء ابتلاءً وحماية.","« اللهم لا مانع لما أعطيت » — متفق عليه"],
+["الضار","الذي يقدر الضر على من يشاء بعدله وحكمته.","من الأسماء الثابتة في حديث الترمذي"],
+["النافع","الذي يقدر النفع لمن يشاء بفضله.","من الأسماء الثابتة في حديث الترمذي"],
+["النور","نور السماوات والأرض وهادي أهلها.","﴿ اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ ﴾"],
+["الهادي","الذي يهدي من يشاء إلى الحق.","﴿ وَإِنَّ اللَّهَ لَهَادِ الَّذِينَ آمَنُوا ﴾"],
+["البديع","المبدع للخلق على غير مثال سابق.","﴿ بَدِيعُ السَّمَاوَاتِ وَالْأَرْضِ ﴾"],
+["الباقي","الدائم الوجود الذي لا يفنى.","﴿ وَيَبْقَىٰ وَجْهُ رَبِّكَ ﴾"],
+["الوارث","الباقي بعد فناء الخلق الذي يرث الأرض ومن عليها.","﴿ وَنَحْنُ الْوَارِثُونَ ﴾"],
+["الرشيد","الذي يرشد الخلق لمصالحهم بحكمته.","من الأسماء الثابتة في حديث الترمذي"],
+["الصبور","الذي لا يعاجل العصاة بالعقوبة ويمهلهم.","« ما أحد أصبر على أذى من الله » — متفق عليه"]
+];
+
+let fs = parseInt(localStorage.getItem("anames-fs")||"100");
+let theme = localStorage.getItem("anames-theme")||"dark";
+
+function applySettings(){
+  document.documentElement.style.setProperty("--fs",(17*fs/100)+"px");
+  document.getElementById("fsLabel").textContent = fs+"%";
+  document.documentElement.setAttribute("data-theme",theme);
+  document.getElementById("themeBtn").textContent = theme==="dark" ? "☀️ نهاري" : "🌙 ليلي";
+}
+function changeFont(d){ fs=Math.min(160,Math.max(70,fs+d*10)); localStorage.setItem("anames-fs",fs); applySettings(); }
+function toggleTheme(){ theme = theme==="dark" ? "light" : "dark"; localStorage.setItem("anames-theme",theme); applySettings(); }
+function toast(m){ const t=document.getElementById("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),1700); }
+async function copyText(txt,msg){
+  try{ await navigator.clipboard.writeText(txt); toast(msg||"تم النسخ ✓"); }
+  catch(e){ const ta=document.createElement("textarea"); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy"); toast(msg||"تم النسخ ✓");}catch(_){toast("تعذر النسخ");} ta.remove(); }
+}
+
+function copyOne(i){
+  const n=NAMES[i];
+  copyText(n[0]+" — "+n[1], "تم نسخ: "+n[0]+" ✓");
+}
+function copyAll(){ copyText(NAMES.map(n=>n[0]).join("\n"),"تم نسخ الأسماء الـ99 ✓"); }
+function copyMeanings(){ copyText(NAMES.map((n,i)=>(i+1)+". "+n[0]+" : "+n[1]).join("\n"),"تم نسخ الأسماء بمعانيها ✓"); }
+function copyAllFull(){ copyText("أسماء الله الحسنى (99):\n"+NAMES.map((n,i)=>(i+1)+". "+n[0]+"\n   المعنى: "+n[1]+"\n   الدليل: "+n[2]).join("\n\n"),"تم نسخ الأسماء مع الأدلة ✓"); }
+
+function buildIndex(){
+  const g=document.getElementById("indexGrid"); g.innerHTML="";
+  NAMES.forEach((n,i)=>{
+    const a=document.createElement("a");
+    a.href="#a"+(i+1); a.textContent=(i+1)+". "+n[0]; a.id="ix"+(i+1);
+    a.onclick=()=>{ setTimeout(()=>{ const el=document.getElementById("a"+(i+1)); if(el){ el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1000); } },300); };
+    g.appendChild(a);
+  });
+}
+function highlight(){
+  document.querySelectorAll(".index-grid a").forEach(x=>x.classList.remove("active"));
+  const h=location.hash;
+  if(h){ const el=document.getElementById("ix"+h.replace("#a","")); if(el) el.classList.add("active"); }
+}
+
+function render(){
+  applySettings();
+  const q=document.getElementById("search").value.trim();
+  const list=document.getElementById("list"); list.innerHTML="";
+  let shown=0;
+  NAMES.forEach((n,i)=>{
+    if(q && !(n[0].includes(q)||n[1].includes(q)||n[2].includes(q))) return;
+    shown++;
+    const div=document.createElement("div");
+    div.className="card"; div.id="a"+(i+1);
+    div.innerHTML=
+      '<div class="card-inner">'+
+        '<div class="card-top"><span class="num">'+(i+1)+' / 99</span><span class="badge">من الأسماء الحسنى</span></div>'+
+        '<div class="name">'+n[0]+'</div>'+
+        '<div class="meaning"><b>المعنى:</b> '+n[1]+'</div>'+
+        '<div class="dalil">📖 '+n[2]+'</div>'+
+        '<div class="card-btns">'+
+          '<button class="btn" onclick="copyOne('+i+')">📋 نسخ الاسم</button>'+
+          '<button class="btn" onclick="copyCard('+i+')">📚 البطاقة</button>'+
+        '</div>'+
+      '</div>';
+    list.appendChild(div);
+  });
+  if(!shown){ list.innerHTML='<div class="empty">لا توجد نتائج 🔍 — جرب كلمة أخرى</div>'; }
+  document.getElementById("shownCount").textContent=shown;
+}
+function copyCard(i){
+  const n=NAMES[i];
+  copyText("الاسم: "+n[0]+"\nالمعنى: "+n[1]+"\nالدليل: "+n[2], "تم نسخ بطاقة "+n[0]+" ✓");
+}
+
+window.addEventListener("hashchange",highlight);
+buildIndex(); render(); highlight();
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    var SW_FORCE = window.__ALLOW_SW__ === true;
+    var SW_DEV   = window.__DEV__ === true ||
+                   /^(localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])$/.test(location.hostname);
+    var SW_FRAME = window.self !== window.top;
+    var CAN_SW   = SW_FORCE || (location.protocol === 'https:' && !SW_DEV && !SW_FRAME && window.__ALLOW_SW__ !== false);
+if(CAN_SW && 'serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
+  });
+}
+</script>
+</body>
+</html>
