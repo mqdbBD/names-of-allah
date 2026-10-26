@@ -19,6 +19,7 @@
 | **`qawaid-quiz.html`** | 📝 **صفحة الاختبار** — 52 سؤال اختيار من متعدد مع دليل حرفي من الكتاب |
 | **`qawaid-original.html`** | 🗂️ **صفحة PDF** — عرض وتحميل `book-original.pdf` (الملف الأصلي الممسوح: 24 صفحة) |
 | **`asmaa-99.html`** | ✨ **أسماء الله الحسنى الـ99** — بالمعاني والدلائل + فهرس وبحث ونسخ وطباعة |
+| **`notes.html`** | 🗒️ **ملاحظاتي** — ملاحظات شخصية لكل مستخدم بعد تسجيل الدخول (Supabase + RLS) |
 | `asmaa-allah-al-husna.html` | نسخة ثانية لعرض أسماء الله الحسنى |
 | `qawaid-book.html` | صفحة تحويل إلى الصفحة الرئيسية (لتوافق الروابط القديمة) |
 | `book-original.pdf` | الملف الأصلي للكتاب كما هو (مسح ضوئي) |
@@ -37,6 +38,37 @@
 
 **التثبيت:** أندرويد (Chrome) ← «تثبيت التطبيق» • آيفون (Safari) ← «إضافة إلى الشاشة الرئيسية».
 **تنبيه مهم:** العمل دون اتصال يتطلب `https://` أو `localhost` — لن يعمل بفتح الملف من المجلد مباشرة (`file://`). عند النشر على GitHub Pages أو أي استضافة https يعمل تلقائياً.
+
+## 🗒️ صفحة «ملاحظاتي» — إعداد Supabase
+
+الصفحة `notes.html` تحفظ ملاحظات كل مستخدم في **حسابه** على Supabase (قاعدة بيانات + مصادقة)،
+والحماية على مستوى الصفوف (RLS) تضمن ألا يرى أحد ملاحظات غيره.
+
+### 1) أنشئ مشروعاً
+Supabase Dashboard ← **New project**.
+
+### 2) نفّذ ملف SQL
+**SQL Editor** ← الصق محتوى `supabase-notes.sql` ← **Run**.
+ينشئ جدول `notes` + سياسات RLS + Trigger لتحديث `updated_at`.
+
+### 3) اضبط المصادقة
+- Authentication ← Providers ← **Email** ✅
+- Authentication ← URL Configuration:
+  - **Site URL:** `https://mqdbbd.github.io/names-of-allah/`
+  - **Redirect URLs:** `https://mqdbbd.github.io/names-of-allah/notes.html`
+
+### 4) ضع المفتاحين في `notes.html`
+```js
+const SUPABASE_URL      = "https://xxxx.supabase.co";
+const SUPABASE_ANON_KEY = "eyJ...";   // anon / public فقط
+```
+
+> ⚠️ **لا تضع `service_role` في الملف أبداً** — يتجاوز RLS ويكشف كل بيانات المستخدمين.
+> مفتاح `anon` عام بطبيعته، والأمان يأتي من RLS.
+
+### 5) اختبر
+افتح `notes.html` ← أنشئ حساباً ← أضف ملاحظة ← اخرج ثم ادخل ← تظهر ملاحظاتك.
+ثم جرّب حساباً آخر: لا يرى شيئاً ✅
 
 ## 💾 نظام النسخ الاحتياطي (Snapshots)
 
