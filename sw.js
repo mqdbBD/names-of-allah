@@ -9,7 +9,7 @@
  * ----------------------------------------------------------------------------
  */
 
-const CACHE_VERSION = "asmaa-v4";
+const CACHE_VERSION = "asmaa-v5";
 
 /* ---------- استثناءات: لا يخزّنها الـ SW ولا يعترضها ---------- */
 const AUTH_DENYLIST = [
@@ -46,6 +46,7 @@ const PRECACHE = [
   "qawaid-book.html",
   "qawaid-quiz.html",
   "qawaid-original.html",
+  "notes.html",
   "manifest.webmanifest",
   "install-prompt.js",
   "icons/icon-192.png",
