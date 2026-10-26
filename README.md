@@ -39,36 +39,42 @@
 **التثبيت:** أندرويد (Chrome) ← «تثبيت التطبيق» • آيفون (Safari) ← «إضافة إلى الشاشة الرئيسية».
 **تنبيه مهم:** العمل دون اتصال يتطلب `https://` أو `localhost` — لن يعمل بفتح الملف من المجلد مباشرة (`file://`). عند النشر على GitHub Pages أو أي استضافة https يعمل تلقائياً.
 
-## 🗒️ صفحة «ملاحظاتي» — إعداد Supabase
+## 🗒️ صفحة «ملاحظاتي» — Supabase (مُهيّأة ✅)
 
 الصفحة `notes.html` تحفظ ملاحظات كل مستخدم في **حسابه** على Supabase (قاعدة بيانات + مصادقة)،
 والحماية على مستوى الصفوف (RLS) تضمن ألا يرى أحد ملاحظات غيره.
 
-### 1) أنشئ مشروعاً
-Supabase Dashboard ← **New project**.
+### المشروع الحالي
+| البند | القيمة |
+|---|---|
+| المشروع | `notes-names-of-allah` |
+| Ref | `waesgwgtcfgfjllmvmdr` |
+| URL | `https://waesgwgtcfgfjllmvmdr.supabase.co` |
+| المنطقة | `eu-west-1` |
+| الجدول | `public.notes` (RLS مفعّل + 4 سياسات) |
+| تأكيد البريد | معطّل (`mailer_autoconfirm = true`) — لتسهيل التسجيل |
 
-### 2) نفّذ ملف SQL
-**SQL Editor** ← الصق محتوى `supabase-notes.sql` ← **Run**.
-ينشئ جدول `notes` + سياسات RLS + Trigger لتحديث `updated_at`.
+### ما تم تنفيذه
+- جدول `notes`: `id`, `user_id` (يُملأ تلقائياً من `auth.uid()`), `title`, `body`, `created_at`, `updated_at`.
+- سياسات RLS: كل مستخدم يقرأ/يضيف/يعدّل/يحذف **ملاحظاته فقط**.
+- `revoke all ... from anon` → الزوار غير المسجّلين لا يصلون للجدول إطلاقاً.
+- Trigger يحدّث `updated_at` تلقائياً.
+- إعدادات المصادقة: Site URL + Redirect URL مضبوطة على رابط الموقع.
 
-### 3) اضبط المصادقة
-- Authentication ← Providers ← **Email** ✅
-- Authentication ← URL Configuration:
-  - **Site URL:** `https://mqdbbd.github.io/names-of-allah/`
-  - **Redirect URLs:** `https://mqdbbd.github.io/names-of-allah/notes.html`
+### الملفات
+- `supabase-notes.sql` — كود SQL الكامل (محلي، غير منشور).
+- `notes.html` — يحتوي `SUPABASE_URL` و`SUPABASE_ANON_KEY` (مفتاح عام).
 
-### 4) ضع المفتاحين في `notes.html`
-```js
-const SUPABASE_URL      = "https://xxxx.supabase.co";
-const SUPABASE_ANON_KEY = "eyJ...";   // anon / public فقط
-```
+### للصيانة
+- تغيير المفتاح: Supabase ← Project Settings ← API Keys.
+- مراقبة المستخدمين: Authentication ← Users.
+- تنفيذ SQL: SQL Editor (أو ملف `supabase-notes.sql` لإعادة البناء من الصفر).
 
-> ⚠️ **لا تضع `service_role` في الملف أبداً** — يتجاوز RLS ويكشف كل بيانات المستخدمين.
-> مفتاح `anon` عام بطبيعته، والأمان يأتي من RLS.
+> ⚠️ **لا تضع `service_role` / `sb_secret_...` في أي ملف منشور أبداً** — يتجاوز RLS ويكشف كل بيانات المستخدمين.
+> مفتاح `anon` / `sb_publishable_...` عام بطبيعته، والأمان يأتي من RLS.
 
-### 5) اختبر
-افتح `notes.html` ← أنشئ حساباً ← أضف ملاحظة ← اخرج ثم ادخل ← تظهر ملاحظاتك.
-ثم جرّب حساباً آخر: لا يرى شيئاً ✅
+### الاختبار المنجز
+حسابان منفصلان: الثاني لا يقرأ/يعدّل/يحذف ملاحظات الأول، ومحاولة انتحال `user_id` تُرفض بـ 403.
 
 ## 💾 نظام النسخ الاحتياطي (Snapshots)
 
