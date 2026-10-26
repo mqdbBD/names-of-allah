@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- تطبيق قابل للتثبيت -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0f1512">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<title>ملاحظاتي | قواعد الأسماء الحسنى</title>
+<meta name="description" content="ملاحظات شخصية محفوظة في حسابك: اكتب ملاحظاتك على الكتاب. محمية بحيث لا يراها أي مستخدم آخر.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f1e7; --card:#ffffff; --text:#2b2417; --muted:#8a7d63;
+  --gold:#b8860b; --gold2:#d4a017; --gold-soft:rgba(184,134,11,.12);
+  --border:#e8ddc3; --green:#1a7a4c; --red:#b23b3b; --shadow:0 10px 30px rgba(120,90,20,.10); --radius:18px;
+}
+[data-theme="dark"]{
+  --bg:#0f1512; --card:#1a2420; --text:#f0e8d5; --muted:#a99c80;
+  --gold:#e3b341; --gold2:#f5cf6a; --gold-soft:rgba(227,179,65,.12);
+  --border:#2c3a33; --green:#3dd68c; --red:#e06a6a; --shadow:0 10px 30px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Cairo',system-ui,sans-serif;background:radial-gradient(900px 420px at 50% -100px, var(--gold-soft), transparent),var(--bg);color:var(--text);font-size:var(--fs,18px);line-height:2.15;transition:background .3s,color .3s}
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:color-mix(in srgb, var(--bg) 90%, transparent);border-bottom:1px solid var(--border)}
+.nav{max-width:1150px;margin:auto;padding:11px 16px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem}
+.logo-mark{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:21px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1a1405;box-shadow:var(--shadow);font-family:'Aref Ruqaa',serif}
+.logo small{display:block;font-size:.7rem;color:var(--muted);font-weight:600}
+.spacer{flex:1}
+.btn{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:8px 14px;cursor:pointer;font-family:inherit;font-weight:700;display:inline-flex;align-items:center;gap:6px;transition:.2s;font-size:.9rem;text-decoration:none}
+.btn:hover{border-color:var(--gold);transform:translateY(-1px)}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;color:#1c1503}
+.btn-danger{color:var(--red);border-color:color-mix(in srgb, var(--red) 45%, var(--border))}
+.btn-danger:hover{border-color:var(--red)}
+.tool-group{display:flex;gap:6px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:4px 6px}
+.tool-group button{border:none;background:transparent;color:var(--text);font-size:17px;width:32px;height:32px;border-radius:50%;cursor:pointer;font-weight:800}
+.tool-group button:hover{background:var(--gold-soft)}
+.tool-group span{font-weight:800;min-width:40px;text-align:center;font-size:.88rem}
+.pages{display:flex;gap:7px;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:4px;flex-wrap:wrap}
+.pages a{border-radius:999px;padding:6px 14px;font-weight:800;font-size:.86rem;color:var(--text);text-decoration:none;white-space:nowrap;transition:.2s}
+.pages a:hover{background:var(--gold-soft)}
+.pages a.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1c1503}
+.hero{max-width:900px;margin:auto;padding:30px 16px 6px;text-align:center}
+.hero .kicker{display:inline-block;background:var(--gold-soft);border:1px solid var(--border);color:var(--gold);border-radius:999px;padding:5px 16px;font-weight:800;font-size:.9rem}
+.hero h1{font-family:'Reem Kufi','Cairo',sans-serif;font-size:clamp(1.8rem,4.8vw,2.9rem);margin:.35em 0;line-height:1.6}
+.hero h1 span{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);max-width:720px;margin:auto;font-size:.98em}
+.privacy{max-width:860px;margin:14px auto 0;padding:12px 18px;background:var(--card);border:1px solid var(--border);border-right:4px solid var(--green);border-radius:14px;box-shadow:var(--shadow);font-size:.9em;color:var(--muted)}
+.privacy b{color:var(--green)}
+.stats{max-width:1150px;margin:16px auto;padding:0 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center;box-shadow:var(--shadow)}
+.stat b{font-size:1.35rem;display:block}
+.stat small{color:var(--muted)}
+.wrap{max-width:900px;margin:auto;padding:0 16px 40px}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:18px}
+.panel h2{margin:0 0 12px;font-size:1.1rem;display:flex;align-items:center;gap:8px}
+.hint{font-size:.82em;color:var(--muted);font-weight:600}
+.field{margin-bottom:10px}
+.field label{display:block;font-size:.82em;font-weight:800;color:var(--muted);margin-bottom:4px}
+input[type=text],input[type=email],input[type=password],textarea{width:100%;padding:12px 15px;border-radius:12px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-family:inherit;font-size:1em;line-height:1.9;outline:none;resize:vertical}
+input:focus,textarea:focus{border-color:var(--gold)}
+textarea{min-height:130px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.actions .spacer{flex:1}
+.tabs{display:flex;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:999px;padding:4px;margin-bottom:14px;width:max-content;max-width:100%}
+.tabs button{border:none;background:transparent;color:var(--muted);border-radius:999px;padding:7px 18px;font-family:inherit;font-weight:800;cursor:pointer;font-size:.9rem}
+.tabs button.on{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1c1503}
+.search{width:100%;padding:13px 18px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:inherit;font-size:1em;outline:none;margin-bottom:14px}
+.search:focus{border-color:var(--gold)}
+#noteList{display:flex;flex-direction:column;gap:12px}
+.note-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;position:relative}
+.note-card::before{content:"";position:absolute;inset-inline-start:0;top:14px;bottom:14px;width:4px;border-radius:4px;background:linear-gradient(180deg,var(--gold),var(--gold2))}
+.note-card h3{margin:0 0 6px;font-size:1.05rem;line-height:1.7;word-break:break-word}
+.note-card .body{white-space:pre-wrap;word-break:break-word;font-size:.97em;line-height:2}
+.note-card .meta{font-size:.76em;color:var(--muted);margin-top:8px;display:flex;gap:12px;flex-wrap:wrap}
+.note-card .acts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.note-card .acts .btn{font-size:.8rem;padding:6px 12px}
+.empty{text-align:center;color:var(--muted);background:var(--card);border:1px dashed var(--border);border-radius:var(--radius);padding:34px 18px}
+.empty .big{font-size:2rem;display:block;margin-bottom:6px}
+.tools{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin:22px 0 0}
+.userbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:10px 16px;margin-bottom:16px;box-shadow:var(--shadow)}
+.userbar .who{font-size:.9em;color:var(--muted);min-width:0;overflow:hidden;text-overflow:ellipsis}
+.userbar .who b{color:var(--text)}
+footer{text-align:center;color:var(--muted);padding:30px 16px;border-top:1px solid var(--border);font-size:.89em;margin-top:26px}
+footer a{color:var(--gold)}
+#toast{position:fixed;bottom:26px;right:50%;transform:translateX(50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 22px;border-radius:999px;font-weight:700;opacity:0;pointer-events:none;transition:.3s;z-index:50;max-width:90vw;text-align:center}
+#toast.show{opacity:1;transform:translateX(50%) translateY(0)}
+.banner{max-width:860px;margin:14px auto 0;padding:14px 18px;border-radius:14px;border:1px solid #d9a441;background:rgba(217,164,65,.12);color:var(--text);font-size:.9em}
+.banner code{background:var(--bg);padding:2px 8px;border-radius:6px;font-size:.88em;direction:ltr;unicode-bidi:isolate;display:inline-block;margin:2px 0}
+.spin{display:inline-block;width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:sp .7s linear infinite;vertical-align:-3px;margin-inline-end:6px}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media(max-width:760px){
+  .stats{grid-template-columns:1fr 1fr}
+  .pages{order:3;width:100%;justify-content:center}
+  .panel{padding:15px}
+}
+@media print{
+  header,.panel,.search,.tools,.stats,.note-card .acts,#toast,.privacy,.hero p,.userbar,.banner{display:none !important}
+  body{background:#fff;color:#000}
+  .note-card{box-shadow:none;border:1px solid #bbb;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">
+      <div class="logo-mark">م</div>
+      <div>ملاحظاتي<small>محفوظة في حسابك — خاصة بك</small></div>
+    </div>
+    <div class="spacer"></div>
+    <nav class="pages">
+      <a href="index.html">📖 الكتاب</a>
+      <a href="qawaid-quiz.html">📝 الاختبار</a>
+      <a href="qawaid-original.html">🗂️ PDF</a>
+      <a href="asmaa-99.html">✨ الأسماء</a>
+      <a href="notes.html" class="active">🗒️ ملاحظاتي</a>
+    </nav>
+    <div class="tool-group" title="حجم الخط">
+      <button onclick="changeFont(-1)" aria-label="تصغير الخط">أ−</button>
+      <span id="fsLabel">100%</span>
+      <button onclick="changeFont(1)" aria-label="تكبير الخط">أ+</button>
+      <button onclick="toggleTheme()" id="themeBtn" title="الوضع الليلي/النهاري" aria-label="تبديل الوضع">🌙</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">خاص بك وحدك</span>
+  <h1>🗒️ <span>ملاحظاتي</span></h1>
+  <p>سجّل دخولك لتكتب فوائدك وخواطرك وأسئلتك حول الكتاب، وتصل إليها من أي جهاز.</p>
+</section>
+
+<div class="privacy">
+  🔒 <b>خصوصية مضمونة:</b> كل ملاحظة مرتبطة بحسابك، وقاعدة البيانات محمية بسياسات
+  <b>RLS</b> — لا يستطيع أي مستخدم آخر قراءة ملاحظاتك أو تعديلها.
+</div>
+
+<div id="configBanner" class="banner" style="display:none"></div>
+
+<div class="stats">
+  <div class="stat"><b id="statCount">0</b><small>ملاحظة</small></div>
+  <div class="stat"><b id="statWords">0</b><small>كلمة</small></div>
+  <div class="stat"><b id="statUpdated">—</b><small>آخر تعديل</small></div>
+</div>
+
+<div class="wrap">
+
+  <!-- ===================== تسجيل الدخول ===================== -->
+  <section id="authView" class="panel" style="display:none">
+    <h2>🔐 الدخول إلى ملاحظاتك</h2>
+
+    <div class="tabs">
+      <button id="tabLogin" class="on" onclick="switchTab('login')">تسجيل الدخول</button>
+      <button id="tabSignup" onclick="switchTab('signup')">حساب جديد</button>
+    </div>
+
+    <form id="authForm" onsubmit="return handleAuth(event)">
+      <div class="field">
+        <label for="authEmail">البريد الإلكتروني</label>
+        <input type="email" id="authEmail" autocomplete="email" required placeholder="name@example.com" dir="ltr">
+      </div>
+      <div class="field">
+        <label for="authPass">كلمة المرور</label>
+        <input type="password" id="authPass" autocomplete="current-password" required minlength="6" placeholder="٦ أحرف على الأقل" dir="ltr">
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-gold" id="authBtn" type="submit">دخول</button>
+        <button class="btn" type="button" onclick="handleReset()" id="resetBtn" style="display:none">نسيت كلمة المرور؟</button>
+        <div class="spacer"></div>
+        <span class="hint" id="authHint"></span>
+      </div>
+    </form>
+  </section>
+
+  <!-- ===================== واجهة الملاحظات ===================== -->
+  <div id="notesView" style="display:none">
+
+    <div class="userbar">
+      <div class="who">مسجّل الدخول: <b id="userEmail">—</b></div>
+      <div class="actions">
+        <button class="btn" onclick="refreshNotes()" id="refreshBtn">🔄 تحديث</button>
+        <button class="btn" id="migrateBtn" onclick="migrateLocalNotes()" style="display:none">⬆️ استيراد ملاحظاتي القديمة</button>
+        <button class="btn btn-danger" onclick="signOut()">🚪 خروج</button>
+      </div>
+    </div>
+
+    <section class="panel" id="editor">
+      <h2>✍️ <span id="editorTitle">ملاحظة جديدة</span> <span class="hint" id="editHint"></span></h2>
+
+      <div class="field">
+        <label for="noteTitle">العنوان (اختياري)</label>
+        <input type="text" id="noteTitle" placeholder="مثال: فائدة عن الأسماء الجامعة" maxlength="200">
+      </div>
+
+      <div class="field">
+        <label for="noteBody">الملاحظة</label>
+        <textarea id="noteBody" placeholder="اكتب ملاحظتك هنا…"></textarea>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-gold" id="saveBtn" onclick="saveNote()">💾 حفظ الملاحظة</button>
+        <button class="btn" id="cancelBtn" onclick="cancelEdit()" style="display:none">إلغاء التعديل</button>
+        <button class="btn" onclick="clearEditor()">🧹 تفريغ</button>
+        <div class="spacer"></div>
+        <span class="hint" id="charCount">0 حرف</span>
+      </div>
+    </section>
+
+    <input class="search" id="search" type="text" placeholder="🔍 ابحث في ملاحظاتك…" oninput="render()">
+
+    <div id="noteList"></div>
+
+    <div class="tools">
+      <button class="btn" onclick="exportNotes()">⬇️ تصدير (ملف)</button>
+      <button class="btn" onclick="copyAll()">📋 نسخ الكل</button>
+      <button class="btn" onclick="window.print()">🖨️ طباعة</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  الملاحظات محفوظة في حسابك على Supabase • <a href="index.html">العودة إلى الكتاب</a> • صدقة جارية 🌙
+</footer>
+
+<div id="toast"></div>
+
+<!-- مكتبة Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+/* ============================================================================
+ *  إعدادات Supabase
+ *  ---------------------------------------------------------------------------
+ *  ضع هنا القيمتين من: Supabase Dashboard → Project Settings → API
+ *    • Project URL
+ *    • anon / public key      ← هذا مفتاح عام آمن للاستخدام في المتصفح
+ *
+ *  ⚠️⚠️ لا تضع هنا أبداً: service_role / secret key
+ *      فذلك المفتاح يتجاوز RLS ويكشف كل بيانات المستخدمين.
+ * ==========================================================================*/
+const SUPABASE_URL      = "https://waesgwgtcfgfjllmvmdr.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndhZXNnd2d0Y2ZnZmpsbG12bWRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMwMzcwNTUsImV4cCI6MjEwODYxMzA1NX0.XPqz_0i4ZccFcSAOfiZ-4fKtmiEdK0ZMEbCFMNf7774"; // مفتاح عام (anon) — آمن للنشر، والحماية من RLS
+
+const CONFIGURED =
+  SUPABASE_URL.indexOf("YOUR-PROJECT-REF") === -1 &&
+  SUPABASE_ANON_KEY.indexOf("YOUR-ANON") === -1 &&
+  SUPABASE_URL.indexOf("http") === 0;
+
+/* ================== الإعدادات (حجم الخط والوضع) ================== */
+let fs = parseInt(localStorage.getItem("notes-fs") || "100");
+let theme = localStorage.getItem("notes-theme") || "dark";
+function applySettings(){
+  fs = Math.min(160, Math.max(70, fs));
+  document.documentElement.style.setProperty("--fs", fs + "%");
+  document.documentElement.setAttribute("data-theme", theme);
+  var l = document.getElementById("fsLabel"); if (l) l.textContent = fs + "%";
+  var t = document.getElementById("themeBtn"); if (t) t.textContent = theme === "dark" ? "☀️" : "🌙";
+}
+function changeFont(d){ fs += d * 10; localStorage.setItem("notes-fs", fs); applySettings(); }
+function toggleTheme(){ theme = theme === "dark" ? "light" : "dark"; localStorage.setItem("notes-theme", theme); applySettings(); }
+
+/* ================== أدوات مساعدة ================== */
+function fmt(n){ return new Intl.NumberFormat("ar-EG").format(n); }
+function fmtDate(ts){
+  if (!ts) return "—";
+  try { return new Date(ts).toLocaleString("ar-EG", { year:"numeric", month:"long", day:"numeric", hour:"2-digit", minute:"2-digit" }); }
+  catch(e){ return String(ts); }
+}
+function esc(s){
+  return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+let toastTimer = null;
+function toast(msg){
+  const el = document.getElementById("toast");
+  el.textContent = msg; el.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ el.classList.remove("show"); }, 2600);
+}
+function busy(btn, on, label){
+  if (!btn) return;
+  if (on){ btn.dataset.label = btn.innerHTML; btn.innerHTML = '<span class="spin"></span>' + (label || "جارٍ…"); btn.disabled = true; }
+  else { btn.innerHTML = btn.dataset.label || btn.innerHTML; btn.disabled = false; }
+}
+
+/* ================== الحالة ================== */
+let sb = null;                 // عميل Supabase
+let session = null;            // جلسة المستخدم
+let notes = [];                // ملاحظات من قاعدة البيانات
+let editingId = null;
+let authMode = "login";
+
+/* ================== بدء التشغيل ================== */
+function showConfigBanner(msg){
+  const b = document.getElementById("configBanner");
+  b.style.display = "";
+  b.innerHTML = msg;
+}
+
+async function init(){
+  applySettings();
+
+  if (!CONFIGURED){
+    showConfigBanner(
+      '⚙️ <b>لم تُضبط قاعدة البيانات بعد.</b><br>' +
+      'افتح الملف <code>notes.html</code> وضع القيمتين في أعلى السكربت:<br>' +
+      '<code>SUPABASE_URL</code> &nbsp; <code>SUPABASE_ANON_KEY</code><br>' +
+      '<span style="font-size:.92em">استخدم المفتاح العام (anon) فقط — وليس service_role.</span>'
+    );
+    document.getElementById("authView").style.display = "";
+    document.getElementById("authBtn").disabled = true;
+    document.getElementById("authHint").textContent = "غير مُفعّل";
+    return;
+  }
+
+  if (typeof window.supabase === "undefined" || !window.supabase.createClient){
+    showConfigBanner('📡 تعذّر تحميل مكتبة Supabase. تحقّق من اتصال الإنترنت ثم حدّث الصفحة.');
+    return;
+  }
+
+  sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+  });
+
+  const { data } = await sb.auth.getSession();
+  session = data && data.session ? data.session : null;
+
+  sb.auth.onAuthStateChange(function(_evt, s){
+    session = s || null;
+    renderAuthState();
+    if (session) loadNotes();
+  });
+
+  renderAuthState();
+  if (session) loadNotes();
+}
+
+function renderAuthState(){
+  const authView = document.getElementById("authView");
+  const notesView = document.getElementById("notesView");
+
+  if (session && session.user){
+    authView.style.display = "none";
+    notesView.style.display = "";
+    document.getElementById("userEmail").textContent = session.user.email || "—";
+    checkLocalNotes();
+  } else {
+    authView.style.display = "";
+    notesView.style.display = "none";
+    document.getElementById("statCount").textContent = "0";
+    document.getElementById("statWords").textContent = "0";
+    document.getElementById("statUpdated").textContent = "—";
+  }
+}
+
+/* ================== المصادقة ================== */
+function switchTab(mode){
+  authMode = mode;
+  document.getElementById("tabLogin").classList.toggle("on", mode === "login");
+  document.getElementById("tabSignup").classList.toggle("on", mode === "signup");
+  document.getElementById("authBtn").textContent = mode === "login" ? "دخول" : "إنشاء حساب";
+  document.getElementById("resetBtn").style.display = mode === "login" ? "" : "none";
+  document.getElementById("authPass").autocomplete = mode === "login" ? "current-password" : "new-password";
+  document.getElementById("authHint").textContent = "";
+}
+
+async function handleAuth(e){
+  e.preventDefault();
+  if (!sb){ toast("قاعدة البيانات غير مضبوطة"); return false; }
+
+  const email = document.getElementById("authEmail").value.trim();
+  const pass  = document.getElementById("authPass").value;
+  const btn   = document.getElementById("authBtn");
+  const hint  = document.getElementById("authHint");
+
+  if (!email || !pass){ hint.textContent = "أدخل البريد وكلمة المرور"; return false; }
+  if (pass.length < 6){ hint.textContent = "كلمة المرور ٦ أحرف على الأقل"; return false; }
+
+  busy(btn, true, authMode === "login" ? "جارٍ الدخول…" : "جارٍ الإنشاء…");
+  hint.textContent = "";
+
+  try {
+    if (authMode === "login"){
+      const { error } = await sb.auth.signInWithPassword({ email: email, password: pass });
+      if (error) throw error;
+      toast("تم تسجيل الدخول ✓");
+    } else {
+      const { data, error } = await sb.auth.signUp({ email: email, password: pass });
+      if (error) throw error;
+      if (data && data.session){
+        toast("تم إنشاء الحساب ✓");
+      } else {
+        hint.textContent = "تم إنشاء الحساب — تحقّق من بريدك لتأكيد الحساب، ثم سجّل الدخول.";
+        toast("تحقّق من بريدك الإلكتروني");
+      }
+    }
+  } catch(err){
+    hint.textContent = translateAuthError(err);
+  } finally {
+    busy(btn, false);
+    btn.textContent = authMode === "login" ? "دخول" : "إنشاء حساب";
+  }
+  return false;
+}
+
+async function handleReset(){
+  if (!sb) return;
+  const email = document.getElementById("authEmail").value.trim();
+  if (!email){ toast("اكتب بريدك أولاً"); return; }
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.href });
+  toast(error ? "تعذّر إرسال الرابط" : "أُرسل رابط إعادة التعيين إلى بريدك ✓");
+}
+
+async function signOut(){
+  if (!sb) return;
+  await sb.auth.signOut();
+  notes = []; editingId = null;
+  cancelEdit(); render();
+  toast("تم تسجيل الخروج");
+}
+
+function translateAuthError(err){
+  const m = (err && (err.message || err.error_description)) || "";
+  if (/Invalid login credentials/i.test(m)) return "البريد أو كلمة المرور غير صحيحة";
+  if (/Email not confirmed/i.test(m)) return "لم يتم تأكيد البريد بعد — راجع بريدك";
+  if (/already registered|already exists/i.test(m)) return "هذا البريد مسجّل بالفعل — سجّل الدخول";
+  if (/Password should be at least/i.test(m)) return "كلمة المرور قصيرة جداً";
+  if (/rate limit|too many/i.test(m)) return "محاولات كثيرة — انتظر قليلاً ثم أعد المحاولة";
+  if (/Invalid API key|JWT/i.test(m)) return "المفتاح العام (anon) غير صحيح";
+  if (/Failed to fetch|NetworkError/i.test(m)) return "تعذّر الاتصال بالخادم — تحقّق من الإنترنت";
+  return m || "حدث خطأ غير متوقع";
+}
+
+/* ================== قراءة الملاحظات ================== */
+async function loadNotes(){
+  if (!sb || !session) return;
+  const list = document.getElementById("noteList");
+  list.innerHTML = '<div class="empty"><span class="spin"></span>جارٍ تحميل ملاحظاتك…</div>';
+
+  const { data, error } = await sb
+    .from("notes")
+    .select("id,title,body,created_at,updated_at")
+    .order("updated_at", { ascending: false });
+
+  if (error){
+    list.innerHTML = '<div class="empty">⚠️ تعذّر تحميل الملاحظات<br><small>' + esc(error.message) + '</small></div>';
+    return;
+  }
+  notes = data || [];
+  render();
+}
+
+function refreshNotes(){
+  const b = document.getElementById("refreshBtn");
+  busy(b, true, "تحديث…");
+  loadNotes().finally(function(){ busy(b, false); });
+  document.getElementById("refreshBtn").innerHTML = "🔄 تحديث";
+}
+
+/* ================== عرض ================== */
+function render(){
+  const q = (document.getElementById("search").value || "").trim().toLowerCase();
+  const list = document.getElementById("noteList");
+  const items = notes.filter(function(n){
+    return !q || (n.title||"").toLowerCase().indexOf(q) > -1 || (n.body||"").toLowerCase().indexOf(q) > -1;
+  });
+
+  if (!notes.length){
+    list.innerHTML = '<div class="empty"><span class="big">🗒️</span>لا توجد ملاحظات بعد.<br>اكتب أول ملاحظة بالأعلى واضغط «حفظ».</div>';
+  } else if (!items.length){
+    list.innerHTML = '<div class="empty"><span class="big">🔍</span>لا نتائج مطابقة لبحثك.</div>';
+  } else {
+    list.innerHTML = items.map(function(n){
+      return '<article class="note-card">' +
+        (n.title ? '<h3>' + esc(n.title) + '</h3>' : '') +
+        '<div class="body">' + esc(n.body) + '</div>' +
+        '<div class="meta"><span>📝 ' + fmtDate(n.updated_at || n.created_at) + '</span>' +
+        (n.updated_at && n.created_at && n.updated_at !== n.created_at ? '<span>🕐 أُنشئت: ' + fmtDate(n.created_at) + '</span>' : '') +
+        '</div>' +
+        '<div class="acts">' +
+          '<button class="btn" data-edit="' + esc(n.id) + '">✏️ تعديل</button>' +
+          '<button class="btn" data-copy="' + esc(n.id) + '">📋 نسخ</button>' +
+          '<button class="btn btn-danger" data-del="' + esc(n.id) + '">🗑️ حذف</button>' +
+        '</div>' +
+      '</article>';
+    }).join("");
+  }
+
+  const words = notes.reduce(function(sum,n){ return sum + ((n.body||"").trim() ? n.body.trim().split(/\s+/).length : 0); }, 0);
+  document.getElementById("statCount").textContent = fmt(notes.length);
+  document.getElementById("statWords").textContent = fmt(words);
+  const last = notes.reduce(function(m,n){ const t = new Date(n.updated_at || n.created_at || 0).getTime(); return t > m ? t : m; }, 0);
+  document.getElementById("statUpdated").textContent = last ? new Date(last).toLocaleDateString("ar-EG",{month:"short",day:"numeric"}) : "—";
+}
+
+/* ================== إضافة / تعديل ================== */
+function updateCharCount(){
+  document.getElementById("charCount").textContent = fmt(document.getElementById("noteBody").value.length) + " حرف";
+}
+
+async function saveNote(){
+  if (!sb || !session){ toast("سجّل الدخول أولاً"); return; }
+
+  const title = document.getElementById("noteTitle").value.trim();
+  const body  = document.getElementById("noteBody").value.trim();
+  if (!body && !title){ toast("اكتب شيئاً قبل الحفظ"); return; }
+
+  const btn = document.getElementById("saveBtn");
+  busy(btn, true, "جارٍ الحفظ…");
+
+  try {
+    if (editingId){
+      const { error } = await sb.from("notes").update({ title: title, body: body }).eq("id", editingId);
+      if (error) throw error;
+      toast("تم تحديث الملاحظة ✓");
+    } else {
+      const { error } = await sb.from("notes").insert({ title: title, body: body });
+      if (error) throw error;
+      toast("تم حفظ الملاحظة ✓");
+    }
+    cancelEdit();
+    await loadNotes();
+  } catch(err){
+    toast("تعذّر الحفظ: " + (err.message || "خطأ"));
+  } finally {
+    busy(btn, false);
+    btn.textContent = editingId ? "💾 حفظ التعديل" : "💾 حفظ الملاحظة";
+  }
+}
+
+function startEdit(id){
+  const n = notes.find(function(x){ return x.id === id; });
+  if (!n) return;
+  editingId = id;
+  document.getElementById("noteTitle").value = n.title || "";
+  document.getElementById("noteBody").value = n.body || "";
+  document.getElementById("editorTitle").textContent = "تعديل الملاحظة";
+  document.getElementById("editHint").textContent = "— تعديل ملاحظة محفوظة";
+  document.getElementById("saveBtn").textContent = "💾 حفظ التعديل";
+  document.getElementById("cancelBtn").style.display = "";
+  updateCharCount();
+  document.getElementById("editor").scrollIntoView({ behavior:"smooth", block:"start" });
+  document.getElementById("noteBody").focus();
+}
+
+function cancelEdit(){
+  editingId = null;
+  document.getElementById("noteTitle").value = "";
+  document.getElementById("noteBody").value = "";
+  document.getElementById("editorTitle").textContent = "ملاحظة جديدة";
+  document.getElementById("editHint").textContent = "";
+  document.getElementById("saveBtn").textContent = "💾 حفظ الملاحظة";
+  document.getElementById("cancelBtn").style.display = "none";
+  updateCharCount();
+}
+
+function clearEditor(){ document.getElementById("noteTitle").value = ""; document.getElementById("noteBody").value = ""; updateCharCount(); }
+
+async function deleteNote(id){
+  const n = notes.find(function(x){ return x.id === id; });
+  if (!n) return;
+  const label = n.title ? "«" + n.title + "»" : "هذه الملاحظة";
+  if (!confirm("حذف " + label + " نهائياً؟")) return;
+
+  const { error } = await sb.from("notes").delete().eq("id", id);
+  if (error){ toast("تعذّر الحذف: " + error.message); return; }
+  if (editingId === id) cancelEdit();
+  toast("تم الحذف");
+  await loadNotes();
+}
+
+function copyNote(id){
+  const n = notes.find(function(x){ return x.id === id; });
+  if (!n) return;
+  copyText((n.title ? n.title + "\n\n" : "") + (n.body || ""), "تم نسخ الملاحظة ✓");
+}
+
+/* ================== أدوات ================== */
+function copyText(text, msg){
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){ toast(msg); }).catch(function(){ fallbackCopy(text, msg); });
+  } else fallbackCopy(text, msg);
+}
+function fallbackCopy(text, msg){
+  const ta = document.createElement("textarea");
+  ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); toast(msg); } catch(e){ toast("تعذّر النسخ"); }
+  document.body.removeChild(ta);
+}
+
+function copyAll(){
+  if (!notes.length){ toast("لا توجد ملاحظات"); return; }
+  const text = notes.slice().reverse().map(function(n,i){
+    return "(" + (i+1) + ") " + (n.title ? n.title + "\n" : "") + (n.body || "") + "\n— " + fmtDate(n.updated_at || n.created_at);
+  }).join("\n\n──────────\n\n");
+  copyText("ملاحظاتي\n\n" + text, "تم نسخ كل الملاحظات ✓");
+}
+
+function exportNotes(){
+  if (!notes.length){ toast("لا توجد ملاحظات للتصدير"); return; }
+  const payload = { app: "qawaid-notes", version: 2, exportedAt: new Date().toISOString(), notes: notes };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type:"application/json;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  const d = new Date();
+  a.href = url;
+  a.download = "ملاحظاتي-" + d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0") + ".json";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+  toast("تم تنزيل الملف ✓");
+}
+
+/* ================== ترحيل الملاحظات القديمة (localStorage) ================== */
+function localNotes(){
+  try {
+    const raw = localStorage.getItem("mynotes-v1");
+    if (!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr : [];
+  } catch(e){ return []; }
+}
+function checkLocalNotes(){
+  const old = localNotes();
+  document.getElementById("migrateBtn").style.display = old.length ? "" : "none";
+  if (old.length) document.getElementById("migrateBtn").textContent = "⬆️ استيراد " + fmt(old.length) + " ملاحظة قديمة";
+}
+
+async function migrateLocalNotes(){
+  const old = localNotes();
+  if (!old.length){ toast("لا توجد ملاحظات قديمة"); return; }
+  if (!confirm("استيراد " + old.length + " ملاحظة من هذا المتصفح إلى حسابك؟")) return;
+
+  const btn = document.getElementById("migrateBtn");
+  busy(btn, true, "جارٍ الاستيراد…");
+  let ok = 0, fail = 0;
+
+  for (const n of old){
+    if (!n || (!n.body && !n.title)) continue;
+    const { error } = await sb.from("notes").insert({ title: n.title || "", body: n.body || "" });
+    if (error) fail++; else ok++;
+  }
+
+  busy(btn, false);
+  if (ok && !fail){
+    if (confirm("تم استيراد " + ok + " ملاحظة ✓\n\nحذف النسخة المحلية القديمة من هذا المتصفح؟")){
+      localStorage.removeItem("mynotes-v1");
+      checkLocalNotes();
+    }
+  }
+  toast("تم الاستيراد: " + ok + (fail ? " — فشل: " + fail : ""));
+  await loadNotes();
+}
+
+/* ================== ربط الأحداث ================== */
+document.getElementById("noteList").addEventListener("click", function(e){
+  const t = e.target.closest("button");
+  if (!t || !t.dataset) return;
+  if (t.dataset.edit) startEdit(t.dataset.edit);
+  else if (t.dataset.del) deleteNote(t.dataset.del);
+  else if (t.dataset.copy) copyNote(t.dataset.copy);
+});
+
+document.getElementById("noteBody").addEventListener("input", updateCharCount);
+document.getElementById("noteBody").addEventListener("keydown", function(e){
+  if ((e.ctrlKey || e.metaKey) && e.key === "Enter"){ e.preventDefault(); saveNote(); }
+});
+
+/* ================== تشغيل ================== */
+init();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    var SW_FORCE = window.__ALLOW_SW__ === true;
+    var SW_DEV   = window.__DEV__ === true ||
+                   /^(localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])$/.test(location.hostname);
+    var SW_FRAME = window.self !== window.top;
+    var CAN_SW   = SW_FORCE || (location.protocol === 'https:' && !SW_DEV && !SW_FRAME && window.__ALLOW_SW__ !== false);
+if(CAN_SW && 'serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
+  });
+}
+</script>
+<script src="install-prompt.js" defer></script>
+</body>
+</html>
